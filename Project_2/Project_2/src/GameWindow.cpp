@@ -1,5 +1,6 @@
 #include "GameWindow.h"
 #include "EntityManager/EntityManager.h"
+#include "LuaTest.h"
 
 void GameWindow::SetUp()
 {
@@ -16,6 +17,8 @@ void GameWindow::SetUp()
 	lightManager.AddLight(dirLight);
 
 #pragma endregion
+
+	LuaTest* luaTest = new LuaTest();
 
 
 
