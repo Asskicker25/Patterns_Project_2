@@ -1,9 +1,14 @@
 #include "GameWindow.h"
 #include "EntityManager/EntityManager.h"
-#include "LuaTest.h"
+#include "Player/Player.h"
+#include "AI/Car/Car.h"
+#include "LuaManager/CommandManager/CommandManager.h"
 
 void GameWindow::SetUp()
 {
+	camera->cameraPos.z = 20;
+	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 500.0f, 65.0f);
+
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
 #pragma region Light
@@ -18,9 +23,8 @@ void GameWindow::SetUp()
 
 #pragma endregion
 
-	LuaTest* luaTest = new LuaTest();
-
-
+	Player* player = new Player();
+	Car* car = new Car();
 
 	EntityManager::GetInstance().Start();
 }
@@ -32,6 +36,7 @@ void GameWindow::PreRender()
 void GameWindow::PostRender()
 {
 	EntityManager::GetInstance().Update(deltaTime);
+	CommandManager::Update(deltaTime);
 }
 
 void GameWindow::ProcessInput(GLFWwindow* window)

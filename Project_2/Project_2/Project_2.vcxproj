@@ -137,7 +137,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\LuaTest.cpp" />
+    <ClCompile Include="src\LuaManager\CommandManager\CommandGroup.cpp" />
+    <ClCompile Include="src\LuaManager\CommandManager\CommandManager.cpp" />
+    <ClCompile Include="src\LuaManager\CommandManager\MoveToPosWithTime.cpp" />
+    <ClCompile Include="src\AI\Car\Car.cpp" />
+    <ClCompile Include="src\LuaManager\LuaState.cpp" />
+    <ClCompile Include="src\Player\Player.cpp" />
+    <ClCompile Include="src\LuaManager\LuaManager.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\ApplicationMain.cpp" />
     <ClCompile Include="src\EntityManager\Entity.cpp" />
@@ -145,7 +151,15 @@
     <ClCompile Include="src\InputManager\InputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\LuaTest.h" />
+    <ClInclude Include="src\GameObject\GameObject.h" />
+    <ClInclude Include="src\LuaManager\CommandManager\CommandGroup.h" />
+    <ClInclude Include="src\LuaManager\CommandManager\CommandManager.h" />
+    <ClInclude Include="src\LuaManager\CommandManager\MoveToPosWithTime.h" />
+    <ClInclude Include="src\LuaManager\CommandManager\BaseCommand.h" />
+    <ClInclude Include="src\AI\Car\Car.h" />
+    <ClInclude Include="src\LuaManager\LuaState.h" />
+    <ClInclude Include="src\Player\Player.h" />
+    <ClInclude Include="src\LuaManager\LuaManager.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\EntityManager\Entity.h" />
     <ClInclude Include="src\EntityManager\EntityManager.h" />
