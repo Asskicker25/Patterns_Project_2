@@ -35,8 +35,8 @@ void GameWindow::PreRender()
 
 void GameWindow::PostRender()
 {
-	EntityManager::GetInstance().Update(deltaTime);
-	CommandManager::Update(deltaTime);
+	EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
+	CommandManager::GetInstance().Update(Time::GetInstance().deltaTime);
 }
 
 void GameWindow::ProcessInput(GLFWwindow* window)

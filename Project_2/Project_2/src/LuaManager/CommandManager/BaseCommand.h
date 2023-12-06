@@ -5,6 +5,8 @@
 class BaseCommand
 {
 public:
+	bool inProgress = false;
+
 	virtual ~BaseCommand() {};
 
 	virtual void StartCommand() = 0;

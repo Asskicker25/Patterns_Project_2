@@ -2,9 +2,9 @@
 #include <Graphics/Debugger.h>
 
 
-LuaState::LuaState(const char* name, Model* model)
+LuaState::LuaState(const char* name, GameObject* gameObject)
 {
-	luaState = LuaManager::GetInstance().CreateLuaState(name,model);
+	luaState = LuaManager::GetInstance().CreateLuaState(name, gameObject);
 }
 
 void LuaState::LoadScript(const char* path)

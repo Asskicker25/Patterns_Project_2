@@ -1,12 +1,12 @@
 #pragma once
 
 #include "LuaManager.h"
-#include <Graphics/Model.h>
+#include "../GameObject/GameObject.h"
 
 class LuaState
 {
 public:
-	LuaState(const char* name, Model* model);
+	LuaState(const char* name, GameObject* gameObject);
 
 	void LoadScript(const char* path );
 	lua_State* GetState();

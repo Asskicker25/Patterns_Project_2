@@ -2,11 +2,11 @@
 
 #include "CommandManager.h"
 
-int CommandManager::currentGroupIndex = 0;
-CommandGroup* CommandManager::currentCommandGroup = nullptr;
-
-std::vector<CommandGroup*> CommandManager::listOfCommandGroups;
-
+CommandManager& CommandManager::GetInstance()
+{
+	static CommandManager instance;
+	return instance;
+}
 
 void CommandManager::BeginCommandGroup(
 	const std::string& friendlyName, const std::string& groupType, int repeatCount)
@@ -18,6 +18,7 @@ void CommandManager::BeginCommandGroup(
 	newCommandGroup->repeatCount = repeatCount;
 	newCommandGroup->SetCommandGroupType(groupType);
 
+	listOfCommandGroups.push_back(newCommandGroup);
 
 	Debugger::Print("Begin Command Group : ", friendlyName);
 

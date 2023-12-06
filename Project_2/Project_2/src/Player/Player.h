@@ -7,8 +7,6 @@
 class Player : public GameObject
 {
 public:
-	Model* model;
-	PhysicsObject* phyObj;
 
 	LuaState* luaState;
 

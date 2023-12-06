@@ -42,7 +42,7 @@
     <ClCompile Include="src\AI\Car\Car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\LuaManager\CommandManager\MoveToPosWithTime.cpp">
+    <ClCompile Include="src\LuaManager\Commands\MoveToPosWithTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\LuaManager\CommandManager\CommandManager.cpp">
@@ -89,7 +89,7 @@
     <ClInclude Include="src\LuaManager\CommandManager\BaseCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\LuaManager\CommandManager\MoveToPosWithTime.h">
+    <ClInclude Include="src\LuaManager\Commands\MoveToPosWithTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LuaManager\CommandManager\CommandManager.h">
@@ -99,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utilities\Lerp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

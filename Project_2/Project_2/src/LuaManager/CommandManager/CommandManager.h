@@ -1,23 +1,27 @@
 #pragma once
 
 #include "CommandGroup.h"
+#include <unordered_map>
 
 class CommandManager
 {
 public:
 
 	//Commands
-	static void BeginCommandGroup(
+	static CommandManager& GetInstance();
+
+	void BeginCommandGroup(
 		const std::string& friendlyName, const std::string& groupType, int repeatCount = 0);
-	static void EndCommandGroup();
-	static void AddCommand(BaseCommand* command);
+	void EndCommandGroup();
+	void AddCommand(BaseCommand* command);
 
-	static void Update(float deltaTime);
+	void Update(float deltaTime);
 
-	static int currentGroupIndex;
-	static CommandGroup* currentCommandGroup;
+	int currentGroupIndex = 0;
+	CommandGroup* currentCommandGroup = nullptr;
 
-	static std::vector<CommandGroup*> listOfCommandGroups;
+	std::vector<CommandGroup*> listOfCommandGroups;
+
 
 };
 

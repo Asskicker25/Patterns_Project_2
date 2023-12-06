@@ -5,9 +5,11 @@ Car::Car()
 	model = new Model();
 	phyObj = new PhysicsObject();
 
+	entityId = "Car";
+
 	InitializeEntity(this);
 
-	luaState = new LuaState("Car", model);
+	luaState = new LuaState("Car", this);
 	luaState->LoadScript("LuaScripts/Car.lua");
 	luaState->Execute();
 }

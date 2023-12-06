@@ -17,7 +17,10 @@ public:
 private:
 
 	float time;
-	glm::vec3 pos;
+	float timeStep = 0;
+
+	glm::vec3 startPos;
+	glm::vec3 targetPos;
 
 	GameObject* gameObject;
 

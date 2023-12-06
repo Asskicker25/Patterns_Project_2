@@ -139,7 +139,7 @@
   <ItemGroup>
     <ClCompile Include="src\LuaManager\CommandManager\CommandGroup.cpp" />
     <ClCompile Include="src\LuaManager\CommandManager\CommandManager.cpp" />
-    <ClCompile Include="src\LuaManager\CommandManager\MoveToPosWithTime.cpp" />
+    <ClCompile Include="src\LuaManager\Commands\MoveToPosWithTime.cpp" />
     <ClCompile Include="src\AI\Car\Car.cpp" />
     <ClCompile Include="src\LuaManager\LuaState.cpp" />
     <ClCompile Include="src\Player\Player.cpp" />
@@ -154,7 +154,7 @@
     <ClInclude Include="src\GameObject\GameObject.h" />
     <ClInclude Include="src\LuaManager\CommandManager\CommandGroup.h" />
     <ClInclude Include="src\LuaManager\CommandManager\CommandManager.h" />
-    <ClInclude Include="src\LuaManager\CommandManager\MoveToPosWithTime.h" />
+    <ClInclude Include="src\LuaManager\Commands\MoveToPosWithTime.h" />
     <ClInclude Include="src\LuaManager\CommandManager\BaseCommand.h" />
     <ClInclude Include="src\AI\Car\Car.h" />
     <ClInclude Include="src\LuaManager\LuaState.h" />
@@ -165,6 +165,7 @@
     <ClInclude Include="src\EntityManager\EntityManager.h" />
     <ClInclude Include="src\InputManager\iInputListener.h" />
     <ClInclude Include="src\InputManager\InputManager.h" />
+    <ClInclude Include="src\Utilities\Lerp.h" />
     <ClInclude Include="src\Utilities\Random.h" />
     <ClInclude Include="src\Utilities\Remap.h" />
   </ItemGroup>

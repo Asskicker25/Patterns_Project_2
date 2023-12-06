@@ -7,7 +7,10 @@ Player::Player()
 
 	InitializeEntity(this);
 
-	luaState = new LuaState("Player", model);
+	entityId = "Player";
+
+
+	luaState = new LuaState("Player", this);
 	luaState->LoadScript("LuaScripts/Player.lua");
 	luaState->Execute();
 }

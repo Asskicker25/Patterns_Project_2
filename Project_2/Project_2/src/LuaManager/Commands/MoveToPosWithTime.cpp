@@ -1,18 +1,29 @@
 #include "MoveToPosWithTime.h"
+#include "../../Utilities/Lerp.h"
+#include <Graphics/Time.h>
 
 MoveToPosWithTime::MoveToPosWithTime(GameObject* gameObject, glm::vec3 pos, float time)
 {
-    this->gameObject = gameObject;
-    this->pos = pos;
     this->time = time;
+    this->targetPos = pos;
+    this->gameObject = gameObject;
 }
 
 void MoveToPosWithTime::StartCommand()
 {
+    this->startPos = gameObject->model->transform.position;
+    inProgress = true;
+    timeStep = 0;
 }
 
 void MoveToPosWithTime::Update()
 {
+    timeStep += Time::GetInstance().deltaTime / time;
+
+    gameObject->model->transform.SetPosition(
+        Lerp(startPos, targetPos, timeStep)
+    );
+
 }
 
 void MoveToPosWithTime::EndCommand()
@@ -21,5 +32,10 @@ void MoveToPosWithTime::EndCommand()
 
 bool MoveToPosWithTime::IsCommandCompleted()
 {
+    if (timeStep >= 1.0f)
+    {
+        return true;
+    }
+
     return false;
 }

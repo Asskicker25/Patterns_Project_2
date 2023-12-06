@@ -140,15 +140,13 @@ void ApplicationWindow::Render()
 {
 	SetUp();
 
-	lastFrameTime = glfwGetTime();
+	Time::GetInstance().lastFrameTime = glfwGetTime();
 
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
 
-		float currentTime = glfwGetTime();
-		deltaTime = currentTime - lastFrameTime;
-		lastFrameTime = currentTime;
+		Time::GetInstance().SetCurrentTime(glfwGetTime());
 
 		//ProcessInput(window);
 		MoveCameraKeyBoard(window);
@@ -270,7 +268,7 @@ void ApplicationWindow::MoveCameraKeyBoard(GLFWwindow* window)
 {
 	if (stopKeyCallback) return;
 
-	float speed = moveSpeed * deltaTime;
+	float speed = moveSpeed * Time::GetInstance().deltaTime;
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{

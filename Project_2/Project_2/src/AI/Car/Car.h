@@ -8,8 +8,6 @@ class Car : public GameObject
 {
 
 public:
-	Model* model;
-	PhysicsObject* phyObj;
 
 	LuaState* luaState;
 

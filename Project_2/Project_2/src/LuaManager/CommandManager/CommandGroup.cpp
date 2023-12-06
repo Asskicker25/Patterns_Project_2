@@ -46,6 +46,11 @@ void CommandGroup::Update()
 		{
 			if (command->IsCommandCompleted()) continue;
 
+			if (!command->inProgress)
+			{
+				command->StartCommand();
+			}
+
 			command->Update();
 
 			return;
