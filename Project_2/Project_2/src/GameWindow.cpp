@@ -3,11 +3,14 @@
 #include "Player/Player.h"
 #include "AI/Car/Car.h"
 #include "LuaManager/CommandManager/CommandManager.h"
+#include "City/City.h"
 
 void GameWindow::SetUp()
 {
-	camera->cameraPos.z = 20;
-	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 500.0f, 65.0f);
+	camera->SetCameraPosition(glm::vec3(-15, 12, 30));
+	camera->SetCameraRotation(glm::vec3(-10, -5, 0));
+
+	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 65.0f);
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
@@ -23,6 +26,7 @@ void GameWindow::SetUp()
 
 #pragma endregion
 
+	City* city = new City();
 	Player* player = new Player();
 	Car* car = new Car();
 
@@ -43,6 +47,19 @@ void GameWindow::PostRender()
 
 void GameWindow::ProcessInput(GLFWwindow* window)
 {
+	std::stringstream ssTitle;
+	ssTitle << "Camera Pos : "
+		<< camera->cameraPos.x << " , "
+		<< camera->cameraPos.y << " , "
+		<< camera->cameraPos.z
+		<< "  Camera Pitch : "
+		<< camera->cameraPitch
+		<< "  Camera Yaw : "
+		<< camera->cameraYaw;
+
+	std::string theTitle = ssTitle.str();
+
+	glfwSetWindowTitle(window, theTitle.c_str());
 }
 
 void GameWindow::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)

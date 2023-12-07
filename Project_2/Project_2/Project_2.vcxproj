@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\LuaManager\Commands\MoveWithSpeed.cpp" />
+    <ClCompile Include="src\LuaManager\Commands\RotateWithTime.cpp" />
+    <ClCompile Include="src\City\City.cpp" />
     <ClCompile Include="src\LuaManager\CommandManager\CommandGroup.cpp" />
     <ClCompile Include="src\LuaManager\CommandManager\CommandManager.cpp" />
     <ClCompile Include="src\LuaManager\Commands\MoveToPosWithTime.cpp" />
@@ -152,6 +155,9 @@
     <ClCompile Include="src\LuaManager\Commands\WaitForSeconds.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\LuaManager\Commands\MoveWithSpeed.h" />
+    <ClInclude Include="src\LuaManager\Commands\RotateWithTime.h" />
+    <ClInclude Include="src\City\City.h" />
     <ClInclude Include="src\GameObject\GameObject.h" />
     <ClInclude Include="src\LuaManager\CommandManager\CommandGroup.h" />
     <ClInclude Include="src\LuaManager\CommandManager\CommandManager.h" />
