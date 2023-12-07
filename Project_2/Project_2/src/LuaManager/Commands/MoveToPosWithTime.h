@@ -19,6 +19,8 @@ private:
 
 	float time;
 	float timeStep = 0;
+	float deltaTime = 0;
+	float lerpValue = 0;
 
 	glm::vec3 startPos;
 	glm::vec3 targetPos;

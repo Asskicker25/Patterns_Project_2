@@ -14,6 +14,12 @@ MoveToPosWithTime::MoveToPosWithTime(GameObject* gameObject, glm::vec3 pos, floa
 void MoveToPosWithTime::StartCommand()
 {
 	this->startPos = gameObject->model->transform.position;
+
+	easeInRatio = easeInTime / time;
+	easeOutRatio = easeOutTime / time;
+
+	easeOutStart = 1 - easeOutRatio;
+
 	timeStep = 0;
 
 	startTime = Time::GetInstance().currentTime;
@@ -22,18 +28,18 @@ void MoveToPosWithTime::StartCommand()
 
 void MoveToPosWithTime::Update()
 {
-	float lerpValue;
+	deltaTime = Time::GetInstance().deltaTime;
 
-    if (time == 0)
+    /*if (time == 0)
     {
         timeStep = time;
         lerpValue = 1;
     }
     else
     {
-        timeStep += Time::GetInstance().deltaTime;
+        timeStep += Time::GetInstance().deltaTime; //Time Step 0 - time
 
-        if (easeInTime != 0 &&  timeStep <= easeInTime)
+        if (easeInTime != 0 &&  timeStep <= easeInTime) 
         {
             lerpValue = EaseIn(easeInMode ,timeStep / easeInTime);
             lerpValue *= easeInTime / time;
@@ -49,6 +55,30 @@ void MoveToPosWithTime::Update()
             lerpValue = timeStep/time;
         }
     }
+	*/
+
+	timeStep += deltaTime / time;
+
+	if (time == 0)
+	{
+		lerpValue = 1;
+		timeStep = 1;
+	}
+	else if (easeInTime != 0 && timeStep <= easeInRatio)
+	{
+		lerpValue = EaseIn(easeInMode, timeStep / easeInRatio);
+		lerpValue *= easeInRatio;
+	}
+	else if (easeOutTime != 0 && timeStep >= easeOutStart)
+	{
+		lerpValue = EaseOut(easeOutMode, (timeStep - easeOutStart) / easeOutRatio);
+		lerpValue *= easeOutRatio;
+		lerpValue += easeOutStart;
+	}
+	else
+	{
+		lerpValue = timeStep;
+	}
 
     gameObject->model->transform.SetPosition(
         Lerp(startPos, targetPos, lerpValue)
@@ -63,7 +93,7 @@ bool MoveToPosWithTime::IsCommandCompleted()
 {
 	if (!updatedOnce) return false;
 
-	if (timeStep >= time)
+	if (lerpValue >= 1)
 	{
 		return true;
 	}
