@@ -1,7 +1,7 @@
-BeginCommandGroup("Player","Parallel",3);
+BeginCommandGroup("Player","Serial",3);
 
-    MoveToPositionWithTime(0,0,5,5)
-    MoveToPositionWithTime(5,0,5,5)
-
+    MoveToPositionWithTime(5,0,5,2.5)
+    WaitForSeconds(2.5);
+    MoveToPositionWithTime(0,0,0,1)
 
 EndCommandGroup()

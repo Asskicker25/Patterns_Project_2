@@ -43,6 +43,21 @@ void CommandManager::AddCommand(BaseCommand* command)
 	currentCommandGroup->AddCommand(command);
 }
 
+void CommandManager::BindGameObject(GameObject* gameObject)
+{
+	currentGameObject = gameObject;
+}
+
+GameObject* CommandManager::GetBoundGameObject()
+{
+	if (currentGameObject == nullptr)
+	{
+		Debugger::Print("No Game Object Bound!!");
+	}
+
+	return currentGameObject;
+}
+
 
 void CommandManager::Update(float deltaTime)
 {

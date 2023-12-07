@@ -1,8 +1,9 @@
 #include "CommandGroup.h"
+#include "../Commands/WaitForSeconds.h"
 
 void CommandGroup::SetCommandGroupType(const std::string& type)
 {
-	if (type == "Sequence")
+	if (type == "Serial")
 	{
 		this->groupType = SEQUENCE;
 	}
@@ -25,6 +26,7 @@ void CommandGroup::Start()
 			if (command->IsCommandCompleted()) continue;
 
 			command->StartCommand();
+			command->inProgress = true;
 
 			return;
 		}
@@ -33,7 +35,19 @@ void CommandGroup::Start()
 	{
 		for (BaseCommand* command : listOfCommands)
 		{
+			if (command == nullptr) continue;
+
+			if (WaitForSeconds* waitCommand = dynamic_cast<WaitForSeconds*>(command))
+			{
+				command->StartCommand();
+				command->inProgress = true;
+				if (!command->IsCommandCompleted()) return;
+			}
+
 			command->StartCommand();
+			command->inProgress = true;
+
+
 		}
 	}
 }
@@ -49,6 +63,7 @@ void CommandGroup::Update()
 			if (!command->inProgress)
 			{
 				command->StartCommand();
+				command->inProgress = true;
 			}
 
 			command->Update();
@@ -60,6 +75,25 @@ void CommandGroup::Update()
 	{
 		for (BaseCommand* command : listOfCommands)
 		{
+			if (command == nullptr) continue;
+
+			if (WaitForSeconds* waitCommand = dynamic_cast<WaitForSeconds*>(command))
+			{
+				if (!command->IsCommandCompleted())
+				{
+					command->Update();
+					return;
+				}
+			}
+
+			if (!command->inProgress)
+			{
+				command->StartCommand();
+				command->inProgress = true;
+			}
+
+			if (command->IsCommandCompleted()) continue;
+
 			command->Update();
 		}
 	}

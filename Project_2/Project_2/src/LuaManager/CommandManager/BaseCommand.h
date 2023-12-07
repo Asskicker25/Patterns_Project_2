@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../GameObject/GameObject.h"
+#include <Graphics/Time.h>
 
 class BaseCommand
 {

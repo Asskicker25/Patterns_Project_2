@@ -23,12 +23,19 @@ public:
 	lua_State* CreateLuaState(const std::string& name, GameObject* gameObject);
 	void CloseLuaState(lua_State* luaState);
 
+	void ExecuteGlobalState();
+
 	GameObject* GetGameObjectWithState(lua_State* state);
 	GameObject* GetGameObjectWithID(std::string id);
 
 private:
 
+	std::string path = "LuaScripts/World.lua";
+
 	void SetBindingsToState(lua_State* luaState);
+	void SetBindingToGlobalState();
+
+	lua_State* globalState;
 
 	std::unordered_map <lua_State*, GameObject*> gameObjectsWithState;
 	std::unordered_map <std::string, GameObject*> gameObjectsWithString;

@@ -27,6 +27,8 @@ void GameWindow::SetUp()
 	Car* car = new Car();
 
 	EntityManager::GetInstance().Start();
+
+	LuaManager::GetInstance().ExecuteGlobalState();
 }
 
 void GameWindow::PreRender()

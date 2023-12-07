@@ -2,7 +2,6 @@
 
 #include <Graphics/ApplicationWindow.h>
 #include <Physics/PhysicsEngine.h>
-#include "LuaManager/LuaManager.h"
 
 
 class GameWindow : public ApplicationWindow
@@ -10,7 +9,6 @@ class GameWindow : public ApplicationWindow
 
 public:
 	PhysicsEngine physicsEngine;
-	LuaManager luaManager;
 
 private:
 
