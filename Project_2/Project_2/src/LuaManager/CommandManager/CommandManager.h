@@ -20,6 +20,8 @@ public:
 
 	void Update(float deltaTime);
 
+	BaseCommand* currentCommand;
+
 
 private:
 

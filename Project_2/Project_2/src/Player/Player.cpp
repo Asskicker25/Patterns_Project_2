@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "../LuaManager/CommandManager/CommandManager.h"
 
 Player::Player()
 {
@@ -12,6 +13,9 @@ Player::Player()
 
 	luaState = new LuaState("Player", this);
 	luaState->LoadScript("LuaScripts/Player.lua");
+
+	CommandManager::GetInstance().BindGameObject(this);
+
 	luaState->Execute();
 }
 

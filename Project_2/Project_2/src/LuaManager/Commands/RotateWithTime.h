@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../CommandManager/BaseCommand.h"
+#include "../CommandManager/EaseCommand.h"
 
-class RotateWithTime : public BaseCommand
+class RotateWithTime : public BaseCommand , public EaseCommand
 {
 public:
 	RotateWithTime(GameObject* gameObject, glm::vec3 rotation, float time);

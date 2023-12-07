@@ -27,6 +27,7 @@ public:
 	void Update();
 
 	void AddCommand(BaseCommand* command);
+	BaseCommand* GetLastCommand();
 
 };
 

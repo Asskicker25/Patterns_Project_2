@@ -67,6 +67,7 @@ void CommandGroup::Update()
 			}
 
 			command->Update();
+			command->updatedOnce = true;
 
 			return;
 		}
@@ -82,6 +83,7 @@ void CommandGroup::Update()
 				if (!command->IsCommandCompleted())
 				{
 					command->Update();
+					command->updatedOnce = true;
 					return;
 				}
 			}
@@ -95,6 +97,7 @@ void CommandGroup::Update()
 			if (command->IsCommandCompleted()) continue;
 
 			command->Update();
+			command->updatedOnce = true;
 		}
 	}
 }
@@ -102,4 +105,9 @@ void CommandGroup::Update()
 void CommandGroup::AddCommand(BaseCommand* command)
 {
 	listOfCommands.push_back(command);
+}
+
+BaseCommand* CommandGroup::GetLastCommand()
+{
+	return listOfCommands[listOfCommands.size() - 1];
 }

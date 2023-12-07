@@ -41,6 +41,9 @@ void CommandManager::AddCommand(BaseCommand* command)
 	}
 
 	currentCommandGroup->AddCommand(command);
+	currentCommand = command;
+
+	command->commandGroup = currentCommandGroup;
 }
 
 void CommandManager::BindGameObject(GameObject* gameObject)
@@ -57,7 +60,6 @@ GameObject* CommandManager::GetBoundGameObject()
 
 	return currentGameObject;
 }
-
 
 void CommandManager::Update(float deltaTime)
 {

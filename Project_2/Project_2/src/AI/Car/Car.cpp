@@ -1,4 +1,5 @@
 #include "Car.h"
+#include "../../LuaManager/CommandManager/CommandManager.h"
 
 Car::Car()
 {
@@ -11,6 +12,9 @@ Car::Car()
 
 	luaState = new LuaState("Car", this);
 	luaState->LoadScript("LuaScripts/Car.lua");
+
+	CommandManager::GetInstance().BindGameObject(this);
+
 	luaState->Execute();
 }
 

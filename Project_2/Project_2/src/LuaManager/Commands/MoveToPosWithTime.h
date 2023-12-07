@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../CommandManager/BaseCommand.h"
+#include "../CommandManager/EaseCommand.h"
 
-class MoveToPosWithTime : public BaseCommand
+class MoveToPosWithTime : public BaseCommand, public EaseCommand
 {
 
 public:
@@ -23,7 +24,5 @@ private:
 	glm::vec3 targetPos;
 
 	GameObject* gameObject;
-
-	
 };
 

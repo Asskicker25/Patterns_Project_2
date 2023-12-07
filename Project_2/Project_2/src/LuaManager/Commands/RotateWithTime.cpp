@@ -16,10 +16,36 @@ void RotateWithTime::StartCommand()
 
 void RotateWithTime::Update()
 {
-    timeStep += Time::GetInstance().deltaTime / time;
+    float lerpValue;
+
+    if (time == 0)
+    {
+        timeStep = time;
+        lerpValue = 1;
+    }
+    else
+    {
+        timeStep += Time::GetInstance().deltaTime;
+
+        if (easeInTime != 0 && timeStep <= easeInTime)
+        {
+            lerpValue = EaseIn(easeInMode, timeStep / easeInTime);
+            lerpValue *= easeInTime / time;
+        }
+        else if (easeOutTime != 0 && timeStep > time - easeOutTime)
+        {
+            lerpValue = EaseOut(easeOutMode, (timeStep - (time - easeOutTime)) / easeOutTime);
+            lerpValue *= easeOutTime / time;
+            lerpValue += 1 - (easeOutTime / time);
+        }
+        else
+        {
+            lerpValue = timeStep / time;
+        }
+    }
 
     gameObject->model->transform.SetRotation(
-        Lerp(startRotation, targetRotation, timeStep)
+        Lerp(startRotation, targetRotation, lerpValue)
     );
 }
 
@@ -29,9 +55,12 @@ void RotateWithTime::EndCommand()
 
 bool RotateWithTime::IsCommandCompleted()
 {
-    if (timeStep >= 1.0f)
+    if (!updatedOnce) return false;
+
+    if (timeStep >= time)
     {
         return true;
     }
+
     return false;
 }

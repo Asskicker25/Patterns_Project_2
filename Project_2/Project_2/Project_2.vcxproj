@@ -155,6 +155,7 @@
     <ClCompile Include="src\LuaManager\Commands\WaitForSeconds.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\LuaManager\CommandManager\EaseCommand.h" />
     <ClInclude Include="src\LuaManager\Commands\MoveWithSpeed.h" />
     <ClInclude Include="src\LuaManager\Commands\RotateWithTime.h" />
     <ClInclude Include="src\City\City.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\EntityManager\EntityManager.h" />
     <ClInclude Include="src\InputManager\iInputListener.h" />
     <ClInclude Include="src\InputManager\InputManager.h" />
+    <ClInclude Include="src\Utilities\EasingHelper.h" />
     <ClInclude Include="src\Utilities\Lerp.h" />
     <ClInclude Include="src\Utilities\Random.h" />
     <ClInclude Include="src\Utilities\Remap.h" />

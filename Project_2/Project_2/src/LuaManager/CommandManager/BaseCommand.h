@@ -3,10 +3,15 @@
 #include "../../GameObject/GameObject.h"
 #include <Graphics/Time.h>
 
+class CommandGroup;
+
 class BaseCommand
 {
 public:
 	bool inProgress = false;
+	bool updatedOnce = false;
+
+	CommandGroup* commandGroup = nullptr;
 
 	virtual ~BaseCommand() {};
 

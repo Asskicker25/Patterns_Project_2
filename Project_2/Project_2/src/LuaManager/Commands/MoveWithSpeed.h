@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../CommandManager/BaseCommand.h"
+#include "../CommandManager/EaseCommand.h"
 
-class MoveWithSpeed : public BaseCommand
+class MoveWithSpeed : public BaseCommand, public EaseCommand
 {
 public:
 

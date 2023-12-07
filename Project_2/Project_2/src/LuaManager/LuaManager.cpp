@@ -60,6 +60,7 @@ void LuaManager::ExecuteGlobalState()
 		return;
 	}
 
+	SetBindingsToState(globalState);
 
 	int result = lua_pcall(globalState, 0, 0, 0);
 
@@ -69,6 +70,7 @@ void LuaManager::ExecuteGlobalState()
 		Debugger::Print("Global State Execution Failed : ", errorMsg);
 		lua_pop(globalState, 1);
 	}
+
 }
 
 GameObject* LuaManager::GetGameObjectWithState(lua_State* state)
@@ -94,9 +96,65 @@ GameObject* LuaManager::GetGameObjectWithID(std::string id)
 	return nullptr;
 }
 
+void GetEaseTable(lua_State* luaState)
+{
+	lua_newtable(luaState);
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			EaseCommand* command = dynamic_cast<EaseCommand*>
+				( CommandManager::GetInstance().currentCommand);
+
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 2)
+			{
+				std::string easeMode = luaL_checkstring(luaState, 1);
+				float time = luaL_checknumber(luaState, 2);
+
+				command->easeInTime = time;
+				command->easeInMode = GetMode(easeMode);
+
+				GetEaseTable(luaState);
+
+				return 1;
+			}
+
+			return 0;
+		});
+
+	lua_setfield(luaState, -2, "EaseIn");
+
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			EaseCommand* command = dynamic_cast<EaseCommand*>
+				(CommandManager::GetInstance().currentCommand);
+
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 2)
+			{
+				std::string easeMode = luaL_checkstring(luaState, 1);
+				float time = luaL_checknumber(luaState, 2);
+
+				command->easeOutTime = time;
+				command->easeOutMode = GetMode(easeMode);
+
+				GetEaseTable(luaState);
+
+				return 1;
+			}
+
+			return 0;
+		});
+
+	lua_setfield(luaState, -2, "EaseOut");
+}
 
 void LuaManager::SetBindingsToState(lua_State* luaState)
 {
+
 #pragma region BeginCommandGroup
 
 	lua_pushcfunction(luaState, [](lua_State* luaState)->int
@@ -132,6 +190,7 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 	lua_pushcfunction(luaState, [](lua_State* luaState)->int
 		{
 			CommandManager::GetInstance().EndCommandGroup();
+
 			return 0;
 		});
 
@@ -177,10 +236,15 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 				float time = luaL_checknumber(luaState, 4);
 
 				BaseCommand* command = new MoveToPosWithTime(
-					LuaManager::GetInstance().GetGameObjectWithState(luaState),
+					CommandManager::GetInstance().GetBoundGameObject(),
 					pos, time);
 
 				CommandManager::GetInstance().AddCommand(command);
+
+				GetEaseTable(luaState);
+
+				return 1;
+
 			}
 			return 0;
 		});
@@ -206,7 +270,7 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 				float speed = luaL_checknumber(luaState, 4);
 
 				BaseCommand* command = new MoveWithSpeed(
-					LuaManager::GetInstance().GetGameObjectWithState(luaState),
+					CommandManager::GetInstance().GetBoundGameObject(),
 					pos, speed);
 
 				CommandManager::GetInstance().AddCommand(command);
@@ -235,10 +299,14 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 				float time = luaL_checknumber(luaState, 4);
 
 				BaseCommand* command = new RotateWithTime(
-					LuaManager::GetInstance().GetGameObjectWithState(luaState),
+					CommandManager::GetInstance().GetBoundGameObject(),
 					rot, time);
 
 				CommandManager::GetInstance().AddCommand(command);
+
+				GetEaseTable(luaState);
+
+				return 1;
 			}
 			return 0;
 		});
@@ -248,53 +316,11 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 #pragma endregion
 
+
 }
 
 void LuaManager::SetBindingToGlobalState()
 {
-
-#pragma region BeginCommandGroup
-
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
-		{
-			int argCount = lua_gettop(luaState);
-			if (argCount >= 3)
-			{
-				std::string friendlyName = luaL_checkstring(luaState, 1);
-				std::string commandGroupType = luaL_checkstring(luaState, 2);
-				int repeatCount = luaL_checknumber(luaState, 3);
-
-				CommandManager::GetInstance().
-					BeginCommandGroup(friendlyName, commandGroupType, repeatCount);
-
-			}
-			else if (argCount == 2)
-			{
-				std::string friendlyName = luaL_checkstring(luaState, 1);
-				std::string commandGroupType = luaL_checkstring(luaState, 2);
-				CommandManager::GetInstance().
-					BeginCommandGroup(friendlyName, commandGroupType);
-			}
-
-			return 0;
-		});
-
-	lua_setglobal(globalState, "BeginCommandGroup");
-
-#pragma endregion
-
-#pragma region EndCommandGroup
-
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
-		{
-			CommandManager::GetInstance().EndCommandGroup();
-			return 0;
-		});
-
-	lua_setglobal(globalState, "EndCommandGroup");
-
-#pragma endregion
-
 #pragma region BindGameObject
 
 	lua_pushcfunction(globalState, [](lua_State* luaState)->int
@@ -322,116 +348,21 @@ void LuaManager::SetBindingToGlobalState()
 
 #pragma endregion
 
-#pragma region WaitForSeconds
+#pragma region GetFloat
 
 	lua_pushcfunction(globalState, [](lua_State* luaState)->int
 		{
-			int argCount = lua_gettop(luaState);
+			lua_pushnumber(luaState, 5);
 
-			if (argCount >= 1)
-			{
-				float time = luaL_checknumber(luaState, 1);
-
-				WaitForSeconds* command = new WaitForSeconds(time);
-
-				CommandManager::GetInstance().AddCommand(command);
-			}
-
-			return 0;
+			return 1;
 		});
 
-	lua_setglobal(globalState, "WaitForSeconds");
-
-#pragma endregion
-
-#pragma region MoveWithTime
-
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
-		{
-			int argCount = lua_gettop(luaState);
-
-			if (argCount >= 4)
-			{
-				glm::vec3 pos;
-				pos.x = luaL_checknumber(luaState, 1);
-				pos.y = luaL_checknumber(luaState, 2);
-				pos.z = luaL_checknumber(luaState, 3);
-
-				float time = luaL_checknumber(luaState, 4);
-
-				BaseCommand* command = new MoveToPosWithTime(
-					CommandManager::GetInstance().GetBoundGameObject(),
-					pos, time);
-
-				CommandManager::GetInstance().AddCommand(command);
-			}
-			return 0;
-		});
-
-	lua_setglobal(globalState, "MoveWithTime");
-
-
-#pragma endregion
-
-#pragma region MoveWithSpeed
-
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
-		{
-			int argCount = lua_gettop(luaState);
-
-			if (argCount >= 4)
-			{
-				glm::vec3 pos;
-				pos.x = luaL_checknumber(luaState, 1);
-				pos.y = luaL_checknumber(luaState, 2);
-				pos.z = luaL_checknumber(luaState, 3);
-
-				float speed = luaL_checknumber(luaState, 4);
-
-				BaseCommand* command = new MoveWithSpeed(
-					LuaManager::GetInstance().GetGameObjectWithState(luaState),
-					pos, speed);
-
-				CommandManager::GetInstance().AddCommand(command);
-			}
-			return 0;
-		});
-
-	lua_setglobal(globalState, "MoveWithSpeed");
-
-
-#pragma endregion
-
-#pragma region RotateWithTime
-
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
-		{
-			int argCount = lua_gettop(luaState);
-
-			if (argCount >= 4)
-			{
-				glm::vec3 rot;
-				rot.x = luaL_checknumber(luaState, 1);
-				rot.y = luaL_checknumber(luaState, 2);
-				rot.z = luaL_checknumber(luaState, 3);
-
-				float time = luaL_checknumber(luaState, 4);
-
-				BaseCommand* command = new RotateWithTime(
-					LuaManager::GetInstance().GetGameObjectWithState(luaState),
-					rot, time);
-
-				CommandManager::GetInstance().AddCommand(command);
-			}
-			return 0;
-		});
-
-	lua_setglobal(globalState, "RotateWithTime");
-
+	lua_setglobal(globalState, "GetFloat");
 
 #pragma endregion
 
 }
+
 
 
 
