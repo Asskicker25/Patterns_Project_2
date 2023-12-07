@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Utilities\BezierCurve\CubicBezierCurve.cpp" />
     <ClCompile Include="src\LuaManager\Commands\MoveWithSpeed.cpp" />
     <ClCompile Include="src\LuaManager\Commands\RotateWithTime.cpp" />
     <ClCompile Include="src\City\City.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\LuaManager\Commands\WaitForSeconds.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Utilities\BezierCurve\CubicBezierCurve.h" />
     <ClInclude Include="src\LuaManager\CommandManager\EaseCommand.h" />
     <ClInclude Include="src\LuaManager\Commands\MoveWithSpeed.h" />
     <ClInclude Include="src\LuaManager\Commands\RotateWithTime.h" />

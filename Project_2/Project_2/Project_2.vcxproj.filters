@@ -63,6 +63,9 @@
     <ClCompile Include="src\LuaManager\Commands\MoveWithSpeed.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utilities\BezierCurve\CubicBezierCurve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EntityManager\Entity.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LuaManager\CommandManager\EaseCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utilities\BezierCurve\CubicBezierCurve.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
