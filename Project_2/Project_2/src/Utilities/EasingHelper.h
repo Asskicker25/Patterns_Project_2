@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -45,6 +46,14 @@ static float easeOutBounce(float time)
 
 static float EaseIn(Ease_Mode mode, float time)
 {
+	if (time < 0.0f)
+	{
+		time = 0;
+	}
+	else if (time > 1.0f)
+	{
+		time = 1.0f;
+	}
 
 	switch (mode)
 	{
@@ -92,6 +101,15 @@ static float EaseIn(Ease_Mode mode, float time)
 
 static float EaseOut(Ease_Mode mode, float time)
 {
+	if (time < 0.0f)
+	{
+		time = 0;
+	}
+	else if (time > 1.0f)
+	{
+		time = 1.0f;
+	}
+
 	switch (mode)
 	{
 	case Sine:
