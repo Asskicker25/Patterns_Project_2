@@ -84,7 +84,7 @@
     <ClCompile Include="src\LuaManager\Commands\CreateCar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BindObject.cpp">
+    <ClCompile Include="src\LuaManager\Commands\FollowObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,7 +179,7 @@
     <ClInclude Include="src\LuaManager\Commands\CreateCar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BindObject.h">
+    <ClInclude Include="src\LuaManager\Commands\FollowObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

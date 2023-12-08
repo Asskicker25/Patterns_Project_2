@@ -7,6 +7,7 @@
 #include "Commands/WaitForSeconds.h"
 #include "Commands/FollowCurveWithTime.h"
 #include "Commands/CreateCar.h"
+#include "Commands/FollowObject.h"
 #include "LuaBindingFunction.h"
 #include "../AI/Car/CarManager.h"
 
@@ -322,6 +323,38 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 		});
 
 	lua_setglobal(luaState, "SpawnCar");
+
+
+#pragma endregion
+	
+#pragma region FollowObject
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 1)
+			{
+				std::string objectId = luaL_checkstring(luaState, 1);
+				
+				GameObject* targetObj = LuaManager::GetInstance().GetGameObjectWithID(objectId);
+
+
+				FollowObject* command = new FollowObject(
+
+					CommandManager::GetInstance().GetBoundGameObject(), targetObj
+				);
+
+				CommandManager::GetInstance().AddCommand(command);
+
+				GetFollowObjectTable(luaState);
+
+				return 1;
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "FollowObject");
 
 
 #pragma endregion

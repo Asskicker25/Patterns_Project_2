@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BindObject.cpp" />
+    <ClCompile Include="src\LuaManager\Commands\FollowObject.cpp" />
     <ClCompile Include="src\LuaManager\Commands\CreateCar.cpp" />
     <ClCompile Include="src\AI\Car\CarManager.cpp" />
     <ClCompile Include="src\AI\Car\CarFactory.cpp" />
@@ -163,7 +163,7 @@
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BindObject.h" />
+    <ClInclude Include="src\LuaManager\Commands\FollowObject.h" />
     <ClInclude Include="src\LuaManager\Commands\CreateCar.h" />
     <ClInclude Include="src\AI\Car\CarManager.h" />
     <ClInclude Include="src\AI\Car\BaseCar.h" />
