@@ -11,7 +11,13 @@ CommandManager& CommandManager::GetInstance()
 void CommandManager::BeginCommandGroup(
 	const std::string& friendlyName, const std::string& groupType, int repeatCount)
 {
+
 	CommandGroup* newCommandGroup = new CommandGroup();
+
+	if (currentCommandGroup != nullptr)
+	{
+		newCommandGroup->parentGroup = currentCommandGroup;
+	}
 
 	newCommandGroup->id = currentGroupIndex;
 	newCommandGroup->friendlyName = friendlyName;
@@ -29,7 +35,8 @@ void CommandManager::BeginCommandGroup(
 void CommandManager::EndCommandGroup()
 {
 	currentCommandGroup->Start();
-	currentCommandGroup = nullptr;
+
+	currentCommandGroup = currentCommandGroup->parentGroup;
 }
 
 void CommandManager::AddCommand(BaseCommand* command)

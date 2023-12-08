@@ -28,12 +28,11 @@ void FollowCurveWithTime::Update()
 {
 	if (currentPointIndex >= curve->GetCurveCount()) return;
 
-	updatedOnce = true;
-
 	deltaTime = Time::GetInstance().deltaTime;
 
 	timeStep += deltaTime / lerpTime;
 
+	//timeStepCurve += deltaTime;
 	timeStepCurve = timeStep * curve->spacing * currentPointIndex;
 
 	if (time == 0)
@@ -96,4 +95,9 @@ bool FollowCurveWithTime::IsCommandCompleted()
 void FollowCurveWithTime::SetBezierCurve(CubicBezierCurve* curve)
 {
 	this->curve = curve;
+}
+
+void FollowCurveWithTime::AddPoint(const glm::vec3& point, const glm::vec3& controlPoint)
+{
+	curve->AddPoint(CubicBezierPoint{ point,controlPoint });
 }

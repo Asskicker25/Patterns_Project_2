@@ -1,18 +1,20 @@
 #pragma once
 
-#include "../../LuaManager/LuaState.h"
-#include "BaseCar.h"
+#include "../../EntityManager/EntityManager.h"
+#include "CarFactory.h"
 
-class Car : public BaseCar
+class CarManager : public Entity
 {
-
 public:
+	
+	CarFactory* carFactory;
 
-	LuaState* luaState;
+	static CarManager& GetInstance();
 
-	Car();
-	void CreateInstance(Model& model);
-	void LoadLuaScript();
+	CarManager();
+
+	void SpawnCar(const std::string& carId, int type = 0);
+
 
 private:
 	// Inherited via Entity

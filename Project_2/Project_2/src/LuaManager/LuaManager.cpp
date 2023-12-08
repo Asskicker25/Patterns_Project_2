@@ -5,6 +5,11 @@
 #include "Commands/MoveWithSpeed.h"
 #include "Commands/RotateWithTime.h"
 #include "Commands/WaitForSeconds.h"
+#include "Commands/FollowCurveWithTime.h"
+#include "Commands/CreateCar.h"
+#include "LuaBindingFunction.h"
+#include "../AI/Car/CarManager.h"
+
 
 LuaManager::LuaManager()
 {
@@ -28,7 +33,7 @@ LuaManager& LuaManager::GetInstance()
 	return instance;
 }
 
-lua_State* LuaManager::CreateLuaState(const std::string& name, GameObject* gameObject)
+lua_State* LuaManager::CreateLuaState(GameObject* gameObject)
 {
 	lua_State* newState = luaL_newstate();
 
@@ -96,61 +101,7 @@ GameObject* LuaManager::GetGameObjectWithID(std::string id)
 	return nullptr;
 }
 
-void GetEaseTable(lua_State* luaState)
-{
-	lua_newtable(luaState);
 
-	lua_pushcfunction(luaState, [](lua_State* luaState)->int
-		{
-			EaseCommand* command = dynamic_cast<EaseCommand*>
-				( CommandManager::GetInstance().currentCommand);
-
-			int argCount = lua_gettop(luaState);
-
-			if (argCount >= 2)
-			{
-				std::string easeMode = luaL_checkstring(luaState, 1);
-				float time = luaL_checknumber(luaState, 2);
-
-				command->easeInTime = time;
-				command->easeInMode = GetMode(easeMode);
-
-				GetEaseTable(luaState);
-
-				return 1;
-			}
-
-			return 0;
-		});
-
-	lua_setfield(luaState, -2, "EaseIn");
-
-
-	lua_pushcfunction(luaState, [](lua_State* luaState)->int
-		{
-			EaseCommand* command = dynamic_cast<EaseCommand*>
-				(CommandManager::GetInstance().currentCommand);
-
-			int argCount = lua_gettop(luaState);
-
-			if (argCount >= 2)
-			{
-				std::string easeMode = luaL_checkstring(luaState, 1);
-				float time = luaL_checknumber(luaState, 2);
-
-				command->easeOutTime = time;
-				command->easeOutMode = GetMode(easeMode);
-
-				GetEaseTable(luaState);
-
-				return 1;
-			}
-
-			return 0;
-		});
-
-	lua_setfield(luaState, -2, "EaseOut");
-}
 
 void LuaManager::SetBindingsToState(lua_State* luaState)
 {
@@ -189,6 +140,7 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 	lua_pushcfunction(luaState, [](lua_State* luaState)->int
 		{
+
 			CommandManager::GetInstance().EndCommandGroup();
 
 			return 0;
@@ -312,6 +264,64 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 		});
 
 	lua_setglobal(luaState, "RotateWithTime");
+
+
+#pragma endregion
+
+#pragma region FollowCurve
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 1)
+			{
+				float time = luaL_checknumber(luaState, 1);
+
+				FollowCurveWithTime* command = new FollowCurveWithTime(
+					CommandManager::GetInstance().GetBoundGameObject(), time);
+
+				command->SetBezierCurve(new CubicBezierCurve());
+
+				CommandManager::GetInstance().AddCommand(command);
+
+				GetCurveTable(luaState);
+
+				return 1;
+
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "FollowCurveWithTime");
+
+
+#pragma endregion
+
+#pragma region SpawnCar
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 2)
+			{
+				std::string carId = luaL_checkstring(luaState, 1);
+				int carType = luaL_checknumber(luaState, 2);
+
+				CarManager::GetInstance().SpawnCar(carId, carType);
+
+				CreateCar* command = new CreateCar(carId,carType);
+
+				CommandManager::GetInstance().AddCommand(command);
+
+				return 0;
+
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "SpawnCar");
 
 
 #pragma endregion

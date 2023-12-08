@@ -1,6 +1,7 @@
 #include "MoveToPosWithTime.h"
 #include "../../Utilities/Lerp.h"
 #include "../../Utilities/Remap.h"
+#include "../CommandManager/CommandManager.h"
 
 float startTime = 0;
 
@@ -13,6 +14,7 @@ MoveToPosWithTime::MoveToPosWithTime(GameObject* gameObject, glm::vec3 pos, floa
 
 void MoveToPosWithTime::StartCommand()
 {
+	
 	this->startPos = gameObject->model->transform.position;
 
 	easeInRatio = easeInTime / time;

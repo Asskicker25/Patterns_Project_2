@@ -5,12 +5,17 @@ Car::Car()
 {
 	model = new Model();
 	phyObj = new PhysicsObject();
+}
 
-	entityId = "Car";
+void Car::CreateInstance(Model& model)
+{
+	this->model->CopyFromModel(model);
+	phyObj->Initialize(this->model, AABB, DYNAMIC);
+}
 
-	InitializeEntity(this);
-
-	luaState = new LuaState("Car", this);
+void Car::LoadLuaScript()
+{
+	luaState = new LuaState(this);
 	luaState->LoadScript("LuaScripts/Car.lua");
 
 	CommandManager::GetInstance().BindGameObject(this);

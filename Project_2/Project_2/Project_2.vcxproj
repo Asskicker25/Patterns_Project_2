@@ -137,7 +137,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BindObject.cpp" />
+    <ClCompile Include="src\LuaManager\Commands\CreateCar.cpp" />
+    <ClCompile Include="src\AI\Car\CarManager.cpp" />
+    <ClCompile Include="src\AI\Car\CarFactory.cpp" />
     <ClCompile Include="src\LuaManager\Commands\FollowCurveWithTime.cpp" />
+    <ClCompile Include="src\LuaManager\LuaBindingFunction.h" />
     <ClCompile Include="src\Utilities\BezierCurve\CubicBezierCurve.cpp" />
     <ClCompile Include="src\LuaManager\Commands\MoveWithSpeed.cpp" />
     <ClCompile Include="src\LuaManager\Commands\RotateWithTime.cpp" />
@@ -155,8 +160,14 @@
     <ClCompile Include="src\EntityManager\EntityManager.cpp" />
     <ClCompile Include="src\InputManager\InputManager.cpp" />
     <ClCompile Include="src\LuaManager\Commands\WaitForSeconds.cpp" />
+    <ClCompile Include="src\Utilities\RendererInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BindObject.h" />
+    <ClInclude Include="src\LuaManager\Commands\CreateCar.h" />
+    <ClInclude Include="src\AI\Car\CarManager.h" />
+    <ClInclude Include="src\AI\Car\BaseCar.h" />
+    <ClInclude Include="src\AI\Car\CarFactory.h" />
     <ClInclude Include="src\LuaManager\Commands\FollowCurveWithTime.h" />
     <ClInclude Include="src\Utilities\BezierCurve\CubicBezierCurve.h" />
     <ClInclude Include="src\LuaManager\CommandManager\EaseCommand.h" />
@@ -182,6 +193,7 @@
     <ClInclude Include="src\Utilities\Random.h" />
     <ClInclude Include="src\Utilities\Remap.h" />
     <ClInclude Include="src\LuaManager\Commands\WaitForSeconds.h" />
+    <ClInclude Include="src\Utilities\RendererInstance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

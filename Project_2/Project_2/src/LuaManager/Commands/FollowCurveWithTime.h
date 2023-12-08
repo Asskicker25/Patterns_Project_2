@@ -17,6 +17,7 @@ public:
 	bool IsCommandCompleted() override;
 
 	void SetBezierCurve(CubicBezierCurve* curve);
+	void AddPoint(const glm::vec3& point, const glm::vec3& controlPoint);
 
 private:
 

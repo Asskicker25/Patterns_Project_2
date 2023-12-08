@@ -20,7 +20,7 @@ public:
 
 	static LuaManager& GetInstance();
 
-	lua_State* CreateLuaState(const std::string& name, GameObject* gameObject);
+	lua_State* CreateLuaState(GameObject* gameObject);
 	void CloseLuaState(lua_State* luaState);
 
 	void ExecuteGlobalState();

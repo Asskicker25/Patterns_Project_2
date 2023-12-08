@@ -1,12 +1,15 @@
 #include "GameWindow.h"
 #include "EntityManager/EntityManager.h"
 #include "Player/Player.h"
-#include "AI/Car/Car.h"
 #include "LuaManager/CommandManager/CommandManager.h"
 #include "City/City.h"
+#include "Utilities/RendererInstance.h"
+#include "AI/Car/CarManager.h"
 
 void GameWindow::SetUp()
 {
+	RendererInstance::GetInstance().SetRenderer(&renderer);
+
 	camera->SetCameraPosition(glm::vec3(-15, 12, 30));
 	camera->SetCameraRotation(glm::vec3(-10, -5, 0));
 
@@ -22,13 +25,14 @@ void GameWindow::SetUp()
 
 	Light* dirLight = new Light();
 	dirLight->InitializeLight(lightModel, Directional);
+	dirLight->intensity = 1.5f;
 	lightManager.AddLight(dirLight);
 
 #pragma endregion
 
 	City* city = new City();
 	Player* player = new Player();
-	Car* car = new Car();
+	CarManager* carManager = new CarManager();
 
 	EntityManager::GetInstance().Start();
 

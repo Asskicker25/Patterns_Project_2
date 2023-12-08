@@ -29,5 +29,7 @@ public:
 	void AddCommand(BaseCommand* command);
 	BaseCommand* GetLastCommand();
 
+	CommandGroup* parentGroup = nullptr;
+
 };
 

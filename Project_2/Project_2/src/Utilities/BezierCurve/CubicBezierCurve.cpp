@@ -1,10 +1,14 @@
-#include "CubicBezierCurve.h"
 #include <iostream>
 
-CubicBezierCurve::CubicBezierCurve(Renderer* renderer, float spacing)
+#include "CubicBezierCurve.h"
+#include "../RendererInstance.h"
+
+CubicBezierCurve::CubicBezierCurve(float spacing)
 {
     this->renderer = renderer;
     this->spacing = spacing;
+
+    renderer = RendererInstance::GetInstance().GetRenderer();
 }
 
 void CubicBezierCurve::CalculateCurve()

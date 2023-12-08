@@ -8,12 +8,12 @@ Player::Player()
 
 	InitializeEntity(this);
 
-	bezierPath = new CubicBezierCurve(renderer,0.01f);
+	bezierPath = new CubicBezierCurve(0.01f);
 
 	entityId = "Player";
 
 
-	luaState = new LuaState("Player", this);
+	luaState = new LuaState( this);
 	luaState->LoadScript("LuaScripts/Player.lua");
 
 	followCurve = new FollowCurveWithTime(this,5);
@@ -39,9 +39,9 @@ void Player::Start()
 
 void Player::Update(float deltaTime)
 {
-	followCurve->Update();
+	/*followCurve->Update();
 	followCurve->IsCommandCompleted();
-	bezierPath->DrawCurve();
+	bezierPath->DrawCurve();*/
 }
 
 void Player::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)

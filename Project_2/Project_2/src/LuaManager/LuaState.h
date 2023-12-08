@@ -6,7 +6,7 @@
 class LuaState
 {
 public:
-	LuaState(const char* name, GameObject* gameObject);
+	LuaState( GameObject* gameObject);
 
 	void LoadScript(const char* path );
 	lua_State* GetState();

@@ -23,7 +23,7 @@ public:
 	
 	float spacing = 0;
 
-	CubicBezierCurve(Renderer* renderer, float spacing = 0.1f);
+	CubicBezierCurve(float spacing = 0.01f);
 
 	void CalculateCurve();
 	void DrawCurve();

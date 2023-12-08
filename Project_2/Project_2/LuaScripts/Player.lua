@@ -1,4 +1,4 @@
-BeginCommandGroup("Init","Serial",3);
+--BeginCommandGroup("Init","Serial",3);
 
 
     --MoveWithTime(-6,9,30,0)
@@ -11,9 +11,9 @@ BeginCommandGroup("Init","Serial",3);
     --WaitForSeconds(2.5);
     --MoveWithTime(0,0,0,1)
 
-EndCommandGroup()
+--EndCommandGroup()
 
-BeginCommandGroup("Move","Parallel",3);
+--BeginCommandGroup("Move","Parallel",3);
 
     --WaitForSeconds(5);
     --MoveWithTime(-6,9,30,2.5)
@@ -26,7 +26,7 @@ BeginCommandGroup("Move","Parallel",3);
     --WaitForSeconds(2.5);
     --MoveWithTime(0,0,0,1)
 
-EndCommandGroup()
+--EndCommandGroup()
 
 
 
