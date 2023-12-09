@@ -72,7 +72,10 @@ void CommandManager::Update(float deltaTime)
 {
 	for (CommandGroup* commandGroup : listOfCommandGroups)
 	{
-		commandGroup->Update();
+		if (commandGroup->conditionMet)
+		{
+			commandGroup->Update();
+		}
 	}
 
 	

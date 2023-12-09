@@ -15,8 +15,11 @@ BaseCar* CarFactory::CreateCar(const std::string& id, int type)
 	{
 		car->CreateInstance(*yellowCar);
 
+		car->tag = id;
+
 		renderer->AddModel(car->model, shader);
 		physicsEngine->AddPhysicsObject(car->phyObj);
+
 
 		EntityManager::GetInstance().AddEntity(id, car);
 

@@ -1,13 +1,22 @@
 #pragma once
 
 #include "../EntityManager/Entity.h"
+#include <unordered_map>
+
+class CommandGroup;
 
 class GameObject : public Entity
 {
+protected:
+	std::unordered_map <std::string, CommandGroup*> listOfCollisionGroups;
+
 public:
 
 	Model* model;
 	PhysicsObject* phyObj;
+
+	void AddCollisionGroup(const std::string& tag, CommandGroup* group);
+
 
 	virtual ~GameObject() {} ;
 	// Inherited via Entity

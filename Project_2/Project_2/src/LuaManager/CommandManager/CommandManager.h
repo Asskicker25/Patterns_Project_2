@@ -21,6 +21,7 @@ public:
 	void Update(float deltaTime);
 
 	BaseCommand* currentCommand;
+	CommandGroup* currentCommandGroup = nullptr;
 
 
 private:
@@ -28,7 +29,6 @@ private:
 	int currentGroupIndex = 0;
 
 	GameObject* currentGameObject = nullptr;
-	CommandGroup* currentCommandGroup = nullptr;
 
 	std::vector<CommandGroup*> listOfCommandGroups;
 

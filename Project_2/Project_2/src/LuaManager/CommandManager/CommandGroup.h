@@ -16,9 +16,13 @@ struct CommandGroup
 public:
 
 	int id;
-	std::string friendlyName;
 	int repeatCount = 0;
+
+	bool conditionMet = true;
+
+	std::string friendlyName;
 	CommandGroupType groupType;
+	
 	std::vector<BaseCommand*> listOfCommands;
 
 	void SetCommandGroupType(const std::string& type);

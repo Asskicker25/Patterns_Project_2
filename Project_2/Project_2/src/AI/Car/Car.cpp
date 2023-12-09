@@ -10,7 +10,22 @@ Car::Car()
 void Car::CreateInstance(Model& model)
 {
 	this->model->CopyFromModel(model);
-	phyObj->Initialize(this->model, AABB, DYNAMIC);
+	phyObj->Initialize(this->model, AABB, DYNAMIC,TRIGGER,true);
+	phyObj->userData = this;
+	phyObj->AssignCollisionCallback([this](PhysicsObject* other)
+		{
+			Entity* entity = (Entity*)other->userData;
+			std::string otherTag = entity->tag;
+
+			std::unordered_map <std::string, CommandGroup*>::iterator it = listOfCollisionGroups.find(otherTag);
+
+			if (it != listOfCollisionGroups.end())
+			{
+				Debugger::Print("Collided With : ", otherTag);
+
+				it->second->conditionMet = true;
+			}
+		});
 }
 
 void Car::LoadLuaScript()

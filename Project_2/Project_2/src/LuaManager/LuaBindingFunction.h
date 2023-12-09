@@ -16,6 +16,7 @@ extern "C"
 static void GetEaseTable(lua_State* luaState);
 static void GetCurveTable(lua_State* luaState);
 static void GetFollowObjectTable(lua_State* luaState);
+static void GetCommandGroupTable(lua_State* luaState);
 
 static int EaseIn(lua_State* luaState)
 {
@@ -187,6 +188,24 @@ static int SetDeaccelerationRange(lua_State* luaState)
 	}
 	return 0;
 }
+static int SetCollisionCondition(lua_State* luaState)
+{
+
+	int argCount = lua_gettop(luaState);
+
+	if (argCount >= 1)
+	{
+		std::string collisionTag = luaL_checkstring(luaState, 1);
+
+		CommandGroup* commandGroup = CommandManager::GetInstance().currentCommandGroup;
+		CommandManager::GetInstance().GetBoundGameObject()->AddCollisionGroup(collisionTag, commandGroup);
+		commandGroup->conditionMet = false;
+
+		GetCommandGroupTable(luaState);
+		return 1;
+	}
+	return 0;
+}
 
 void GetEaseTable(lua_State* luaState)
 {
@@ -200,7 +219,6 @@ void GetEaseTable(lua_State* luaState)
 
 	lua_setfield(luaState, -2, "EaseOut");
 }
-
 void GetCurveTable(lua_State* luaState)
 {
 	lua_newtable(luaState);
@@ -215,7 +233,6 @@ void GetCurveTable(lua_State* luaState)
 	lua_setfield(luaState, -2, "AddPoint");
 
 }
-
 void GetFollowObjectTable(lua_State* luaState)
 {
 	lua_newtable(luaState);
@@ -234,4 +251,11 @@ void GetFollowObjectTable(lua_State* luaState)
 
 	lua_pushcfunction(luaState, SetDeaccelerationRange);
 	lua_setfield(luaState, -2, "SetDeaccelerationRange");
+}
+void GetCommandGroupTable(lua_State* luaState)
+{
+	lua_newtable(luaState);
+
+	lua_pushcfunction(luaState, SetCollisionCondition);
+	lua_setfield(luaState, -2, "SetCollisionCondition");
 }

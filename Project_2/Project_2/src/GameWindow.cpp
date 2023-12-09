@@ -5,9 +5,13 @@
 #include "City/City.h"
 #include "Utilities/RendererInstance.h"
 #include "AI/Car/CarManager.h"
+#include "TriggerZone/TriggerZoneManager.h"
 
 void GameWindow::SetUp()
 {
+	physicsEngine.fixedStepTime = 0.01f;
+	physicsEngine.gravity.y = 0;
+
 	RendererInstance::GetInstance().SetRenderer(&renderer);
 
 	camera->SetCameraPosition(glm::vec3(-15, 12, 30));
@@ -32,7 +36,9 @@ void GameWindow::SetUp()
 
 	City* city = new City();
 	Player* player = new Player();
-	CarManager* carManager = new CarManager();
+	
+	TriggerZoneManager::GetInstance().SetShader(&alphaBlendShader);
+
 
 	EntityManager::GetInstance().Start();
 
@@ -45,6 +51,7 @@ void GameWindow::PreRender()
 
 void GameWindow::PostRender()
 {
+	physicsEngine.Update(Time::GetInstance().deltaTime); 
 	EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
 	CommandManager::GetInstance().Update(Time::GetInstance().deltaTime);
 }

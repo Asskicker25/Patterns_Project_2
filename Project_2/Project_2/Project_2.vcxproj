@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\GameObject.cpp" />
     <ClCompile Include="src\LuaManager\Commands\FollowObject.cpp" />
     <ClCompile Include="src\LuaManager\Commands\CreateCar.cpp" />
     <ClCompile Include="src\AI\Car\CarManager.cpp" />
@@ -161,6 +162,9 @@
     <ClCompile Include="src\InputManager\InputManager.cpp" />
     <ClCompile Include="src\LuaManager\Commands\WaitForSeconds.cpp" />
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
+    <ClCompile Include="src\TriggerZone\TriggerZone.cpp" />
+    <ClCompile Include="src\TriggerZone\TriggerZoneFactory.cpp" />
+    <ClCompile Include="src\TriggerZone\TriggerZoneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\LuaManager\Commands\FollowObject.h" />
@@ -194,6 +198,9 @@
     <ClInclude Include="src\Utilities\Remap.h" />
     <ClInclude Include="src\LuaManager\Commands\WaitForSeconds.h" />
     <ClInclude Include="src\Utilities\RendererInstance.h" />
+    <ClInclude Include="src\TriggerZone\TriggerZone.h" />
+    <ClInclude Include="src\TriggerZone\TriggerZoneFactory.h" />
+    <ClInclude Include="src\TriggerZone\TriggerZoneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

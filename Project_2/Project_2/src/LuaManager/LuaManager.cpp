@@ -10,6 +10,7 @@
 #include "Commands/FollowObject.h"
 #include "LuaBindingFunction.h"
 #include "../AI/Car/CarManager.h"
+#include "../TriggerZone/TriggerZoneManager.h"
 
 
 LuaManager::LuaManager()
@@ -102,6 +103,11 @@ GameObject* LuaManager::GetGameObjectWithID(std::string id)
 	return nullptr;
 }
 
+void LuaManager::AddGameObject(const std::string& id, GameObject* gameObject)
+{
+	gameObjectsWithString[id] = gameObject;
+}
+
 
 
 void LuaManager::SetBindingsToState(lua_State* luaState)
@@ -130,7 +136,9 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 					BeginCommandGroup(friendlyName, commandGroupType);
 			}
 
-			return 0;
+			GetCommandGroupTable(luaState);
+
+			return 1;
 		});
 
 	lua_setglobal(luaState, "BeginCommandGroup");
@@ -355,6 +363,35 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 		});
 
 	lua_setglobal(luaState, "FollowObject");
+
+
+#pragma endregion
+
+#pragma region SpawnTriggerZone
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 4)
+			{
+				std::string zoneId = luaL_checkstring(luaState, 1);
+
+				glm::vec3 scale;
+				scale.x = luaL_checknumber(luaState, 2);
+				scale.y = luaL_checknumber(luaState, 3);
+				scale.z = luaL_checknumber(luaState, 4);
+
+				GameObject* zone = TriggerZoneManager::GetInstance().SpawnZone(zoneId, scale);
+				LuaManager::GetInstance().AddGameObject(zoneId, zone);
+
+				return 0;
+
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "SpawnTriggerZone");
 
 
 #pragma endregion

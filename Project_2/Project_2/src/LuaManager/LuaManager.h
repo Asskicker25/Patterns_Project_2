@@ -28,6 +28,8 @@ public:
 	GameObject* GetGameObjectWithState(lua_State* state);
 	GameObject* GetGameObjectWithID(std::string id);
 
+	void AddGameObject(const std::string& id, GameObject* gameObject);
+
 private:
 
 	std::string path = "LuaScripts/World.lua";

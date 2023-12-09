@@ -11,7 +11,7 @@ Player::Player()
 	bezierPath = new CubicBezierCurve(0.01f);
 
 	entityId = "Player";
-
+	tag = "Player";
 
 	luaState = new LuaState( this);
 	luaState->LoadScript("LuaScripts/Player.lua");
@@ -33,6 +33,8 @@ Player::Player()
 	luaState->Execute();
 }
 
+
+
 void Player::Start()
 {
 }
@@ -52,7 +54,24 @@ void Player::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, Physics
 	model->transform.SetScale(glm::vec3(0.01f));
 	renderer->AddModel(model, shader);
 
-	phyObj->Initialize(model, SPHERE, DYNAMIC);
+	phyObj->Initialize(model, SPHERE, DYNAMIC,TRIGGER,true);
+	phyObj->userData = this;
+
+	phyObj->AssignCollisionCallback([this](PhysicsObject* other)
+		{
+			Entity* entity = (Entity*)other->userData;
+			std::string otherTag = entity->tag;
+
+			std::unordered_map <std::string, CommandGroup*>::iterator it = listOfCollisionGroups.find(otherTag);
+
+
+			if (it != listOfCollisionGroups.end())
+			{
+				Debugger::Print("Collided With : ", otherTag);
+				it->second->conditionMet = true;
+			}
+		});
+
 	physicsEngine->AddPhysicsObject(phyObj);
 
 }
@@ -60,3 +79,4 @@ void Player::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, Physics
 void Player::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
 {
 }
+
