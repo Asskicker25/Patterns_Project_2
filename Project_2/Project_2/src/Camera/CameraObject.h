@@ -1,26 +1,17 @@
 #pragma once
 
-#include "../EntityManager/Entity.h"
 #include "../GameObject/GameObject.h"
-#include "../LuaManager/LuaState.h"
-#include "../Utilities/BezierCurve/CubicBezierCurve.h"
-#include "../LuaManager/Commands/FollowCurveWithTime.h"
+#include <Graphics/Camera.h>
 
-class Player : public GameObject
+class CameraObject : public GameObject
 {
+
 public:
+	Camera* camera;
 
-	LuaState* luaState;
-	CubicBezierCurve* bezierPath;
-	FollowCurveWithTime* followCurve;
+	CameraObject();
 
-	Player();
-
-private:
-
-	Renderer* renderer;
-
-	// Inherited via Entity
+	// Inherited via GameObject
 	void Start() override;
 	void Update(float deltaTime) override;
 	void AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine) override;

@@ -10,7 +10,7 @@ RotateWithTime::RotateWithTime(GameObject* gameObject, glm::vec3 rotation, float
 
 void RotateWithTime::StartCommand()
 {
-    startRotation = gameObject->model->transform.rotation;
+    startRotation = gameObject->GetTransform()->rotation;
     timeStep = 0;
 }
 
@@ -44,7 +44,7 @@ void RotateWithTime::Update()
         }
     }
 
-    gameObject->model->transform.SetRotation(
+    gameObject->GetTransform()->SetRotation(
         Lerp(startRotation, targetRotation, lerpValue)
     );
 }

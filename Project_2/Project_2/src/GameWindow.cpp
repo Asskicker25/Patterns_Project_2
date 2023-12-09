@@ -6,6 +6,7 @@
 #include "Utilities/RendererInstance.h"
 #include "AI/Car/CarManager.h"
 #include "TriggerZone/TriggerZoneManager.h"
+#include "Camera/CameraObject.h"
 
 void GameWindow::SetUp()
 {
@@ -17,7 +18,7 @@ void GameWindow::SetUp()
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 65.0f);
 
-	camera->transform.SetPosition(glm::vec3(-26, 32, 30));
+	camera->transform.SetPosition(glm::vec3(0, 0, 0));
 	camera->transform.SetRotation(glm::vec3(-20, -90, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
@@ -37,6 +38,10 @@ void GameWindow::SetUp()
 
 	City* city = new City();
 	Player* player = new Player();
+
+	CameraObject* cameraObject = new CameraObject();
+	cameraObject->camera = camera;
+
 
 	TriggerZoneManager::GetInstance().SetShader(&alphaBlendShader);
 

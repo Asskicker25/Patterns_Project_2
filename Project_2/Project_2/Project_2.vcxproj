@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\LuaManager\Commands\LookAt.cpp" />
+    <ClCompile Include="src\AI\Car\BaseCar.cpp" />
+    <ClCompile Include="src\Camera\CameraObject.cpp" />
     <ClCompile Include="src\GameObject\GameObject.cpp" />
     <ClCompile Include="src\LuaManager\Commands\FollowObject.cpp" />
     <ClCompile Include="src\LuaManager\Commands\CreateCar.cpp" />
@@ -167,6 +170,8 @@
     <ClCompile Include="src\TriggerZone\TriggerZoneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\LuaManager\Commands\LookAt.h" />
+    <ClInclude Include="src\Camera\CameraObject.h" />
     <ClInclude Include="src\LuaManager\Commands\FollowObject.h" />
     <ClInclude Include="src\LuaManager\Commands\CreateCar.h" />
     <ClInclude Include="src\AI\Car\CarManager.h" />

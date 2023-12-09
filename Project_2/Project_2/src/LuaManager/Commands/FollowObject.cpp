@@ -19,8 +19,8 @@ void FollowObject::Update()
 {
 	deltaTime = Timer::GetInstance().deltaTime;
 
-	startPos = followObject->model->transform.position;
-	targetPos = targetObject->model->transform.position + followOffset;
+	startPos = followObject->GetTransform()->position;
+	targetPos = targetObject->GetTransform()->position + followOffset;
 
 	glm::vec3 diff = targetPos - startPos;
 	glm::vec3 dir = glm::normalize(diff);
@@ -52,7 +52,7 @@ void FollowObject::Update()
 
 	timeStep = CalculateTForSpeed(timeStep, deltaTime, maxSpeed * remapedValue);
 
-	followObject->model->transform.SetPosition(
+	followObject->GetTransform()->SetPosition(
 		Lerp(startPos, targetPos, timeStep)
 	);
 }
@@ -63,7 +63,6 @@ void FollowObject::EndCommand()
 
 bool FollowObject::IsCommandCompleted()
 {
-
 	return false;
 }
 

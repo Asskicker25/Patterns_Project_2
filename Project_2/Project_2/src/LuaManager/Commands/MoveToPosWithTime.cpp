@@ -15,7 +15,7 @@ MoveToPosWithTime::MoveToPosWithTime(GameObject* gameObject, glm::vec3 pos, floa
 void MoveToPosWithTime::StartCommand()
 {
 	
-	this->startPos = gameObject->model->transform.position;
+	this->startPos = gameObject->GetTransform()->position;
 
 	easeInRatio = easeInTime / time;
 	easeOutRatio = easeOutTime / time;
@@ -82,7 +82,7 @@ void MoveToPosWithTime::Update()
 		lerpValue = timeStep;
 	}
 
-    gameObject->model->transform.SetPosition(
+    gameObject->GetTransform()->SetPosition(
         Lerp(startPos, targetPos, lerpValue)
     );
 }

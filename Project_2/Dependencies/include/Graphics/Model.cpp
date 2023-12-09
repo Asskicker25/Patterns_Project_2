@@ -225,6 +225,11 @@ void Model::LoadModel(MeshDataHolder& meshData, bool loadTextures)
 
 }
 
+Transform* Model::GetTransform()
+{
+	return &transform;
+}
+
 
 void Model::LoadModel(const std::string& path, bool loadTextures)
 {

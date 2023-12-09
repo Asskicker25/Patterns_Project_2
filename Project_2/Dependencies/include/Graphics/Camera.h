@@ -43,6 +43,8 @@ public:
 	void SetCameraWidth(const float& width);
 	void SetCameraHeight(const float& height);
 
+	Transform* GetTransform();
+
 	glm::mat4 GetViewMatrix();
 
 	inline glm::mat4 GetMatrix() const { return cameraMatrix; }

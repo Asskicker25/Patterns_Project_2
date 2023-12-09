@@ -59,7 +59,7 @@ void FollowCurveWithTime::Update()
 		lerpValue = timeStep;
 	}
 
-	gameObject->model->transform.SetPosition(
+	gameObject->GetTransform()->SetPosition(
 		Lerp(startPos, targetPos, lerpValue)
 	);
 

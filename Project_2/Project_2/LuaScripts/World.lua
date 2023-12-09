@@ -10,6 +10,7 @@ BeginCommandGroup("Player","Serial")
     
 EndCommandGroup("Player")
 
+
 BindGameObject("Player") 
 BeginCommandGroup("PlayerOnCollision","Serial").SetCollisionCondition("Zone1")
 
@@ -47,3 +48,16 @@ BeginCommandGroup("CarSpawn","Parallel")
     FollowObject("Car1").SetFollowDistance(20).SetFollowOffset(0,0,0).SetMaxSpeed(0.01).SetDeaccelerationRange(30).SetAccelerationRange(60)
 
 EndCommandGroup("CarSpawn")
+
+
+
+BindGameObject("Camera") 
+BeginCommandGroup("Camera","Parallel")
+
+    MoveWithTime(-26, 32, 30,0 )
+
+    FollowObject("Car2").SetFollowDistance(10).SetFollowOffset(-10,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
+   
+    LookAt("Car2")
+
+EndCommandGroup("Camera")

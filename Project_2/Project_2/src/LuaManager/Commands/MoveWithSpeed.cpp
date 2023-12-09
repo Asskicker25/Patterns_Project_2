@@ -10,7 +10,7 @@ MoveWithSpeed::MoveWithSpeed(GameObject* gameObject, glm::vec3 pos, float speed)
 
 void MoveWithSpeed::StartCommand()
 {
-	this->startPos = gameObject->model->transform.position;
+	this->startPos = gameObject->GetTransform()->position;
 	timeStep = 0;
 }
 
@@ -18,7 +18,7 @@ void MoveWithSpeed::Update()
 {
 	timeStep = CalculateTForSpeed(timeStep, Timer::GetInstance().deltaTime, speed);
 
-	gameObject->model->transform.SetPosition(
+	gameObject->GetTransform()->SetPosition(
 		Lerp(startPos, targetPos, timeStep)
 	);
 }

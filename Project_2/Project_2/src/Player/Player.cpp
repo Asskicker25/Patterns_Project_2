@@ -80,3 +80,8 @@ void Player::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* phy
 {
 }
 
+Transform* Player::GetTransform()
+{
+	return &model->transform;
+}
+

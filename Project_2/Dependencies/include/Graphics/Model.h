@@ -45,6 +45,8 @@ public:
 	void DrawShaded(Shader* shader);
 	void DrawWireframe(const glm::vec3& color);
 
+	Transform* GetTransform();
+
 	bool loadTextures;
 
 private:

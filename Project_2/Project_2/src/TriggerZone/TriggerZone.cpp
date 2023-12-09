@@ -30,3 +30,8 @@ void TriggerZone::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, Ph
 void TriggerZone::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
 {
 }
+
+Transform* TriggerZone::GetTransform()
+{
+	return &model->transform;
+}

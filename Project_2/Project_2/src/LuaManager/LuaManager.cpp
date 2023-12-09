@@ -8,6 +8,7 @@
 #include "Commands/FollowCurveWithTime.h"
 #include "Commands/CreateCar.h"
 #include "Commands/FollowObject.h"
+#include "Commands/LookAt.h"
 #include "LuaBindingFunction.h"
 #include "../AI/Car/CarManager.h"
 #include "../TriggerZone/TriggerZoneManager.h"
@@ -367,6 +368,35 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 #pragma endregion
 
+#pragma region LookAt
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 1)
+			{
+				std::string objectId = luaL_checkstring(luaState, 1);
+
+				GameObject* targetObj = LuaManager::GetInstance().GetGameObjectWithID(objectId);
+
+				LookAt* command = new LookAt(
+
+					CommandManager::GetInstance().GetBoundGameObject(), targetObj
+				);
+
+				CommandManager::GetInstance().AddCommand(command);
+
+				return 0;
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "LookAt");
+
+
+#pragma endregion
+
 #pragma region SpawnTriggerZone
 
 	lua_pushcfunction(luaState, [](lua_State* luaState)->int
@@ -395,6 +425,8 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 
 #pragma endregion
+
+
 
 
 }

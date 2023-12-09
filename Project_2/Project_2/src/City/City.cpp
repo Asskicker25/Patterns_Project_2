@@ -31,3 +31,8 @@ void City::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEn
 void City::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
 {
 }
+
+Transform* City::GetTransform()
+{
+	return &model->transform;
+}

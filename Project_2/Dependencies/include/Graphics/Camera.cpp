@@ -104,6 +104,11 @@ void Camera::SetCameraHeight(const float& height)
 	this->cameraHeight = height;
 }
 
+Transform* Camera::GetTransform()
+{
+	return &transform;
+}
+
 glm::mat4 Camera::GetViewMatrix()
 {
 	glm::mat4 view = glm::mat4(1.0f);

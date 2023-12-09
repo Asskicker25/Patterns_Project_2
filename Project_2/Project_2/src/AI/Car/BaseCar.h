@@ -13,5 +13,8 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine) = 0;
 	virtual void RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine) = 0;
+
+	// Inherited via GameObject
+	Transform* GetTransform() override;
 };
 
