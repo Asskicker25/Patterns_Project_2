@@ -195,7 +195,7 @@ void Renderer::DrawOutline()
 
 void Renderer::SortBlendModels()
 {
-	CompareDistances compareDistance(camera->cameraPos);
+	CompareDistances compareDistance(camera->transform.position);
 	std::sort(blendModelAndShaders.begin(), blendModelAndShaders.end(), compareDistance);
 }
 

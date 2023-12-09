@@ -25,7 +25,7 @@ void RotateWithTime::Update()
     }
     else
     {
-        timeStep += Time::GetInstance().deltaTime;
+        timeStep += Timer::GetInstance().deltaTime;
 
         if (easeInTime != 0 && timeStep <= easeInTime)
         {

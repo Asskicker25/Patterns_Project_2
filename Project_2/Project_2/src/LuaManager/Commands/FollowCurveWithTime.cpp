@@ -28,7 +28,7 @@ void FollowCurveWithTime::Update()
 {
 	if (currentPointIndex >= curve->GetCurveCount()) return;
 
-	deltaTime = Time::GetInstance().deltaTime;
+	deltaTime = Timer::GetInstance().deltaTime;
 
 	timeStep += deltaTime / lerpTime;
 

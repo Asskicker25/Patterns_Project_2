@@ -1,9 +1,9 @@
 #pragma once
 
-class Time
+class Timer
 {
 public:
-	static Time& GetInstance();
+	static Timer& GetInstance();
 
 	float deltaTime{ 0 };
 	float currentTime{ 0 };

@@ -17,7 +17,7 @@ void FollowObject::StartCommand()
 
 void FollowObject::Update()
 {
-	deltaTime = Time::GetInstance().deltaTime;
+	deltaTime = Timer::GetInstance().deltaTime;
 
 	startPos = followObject->model->transform.position;
 	targetPos = targetObject->model->transform.position + followOffset;

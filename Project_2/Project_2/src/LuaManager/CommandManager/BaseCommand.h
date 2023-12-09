@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../GameObject/GameObject.h"
-#include <Graphics/Time.h>
+#include <Graphics/Timer.h>
 
 class CommandGroup;
 

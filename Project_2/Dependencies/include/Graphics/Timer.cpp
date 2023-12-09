@@ -1,12 +1,12 @@
-#include "Time.h"
+#include "Timer.h"
 
-Time& Time::GetInstance()
+Timer& Timer::GetInstance()
 {
-    static Time instance;
+    static Timer instance;
     return instance;
 }
 
-void Time::SetCurrentTime(float currentTime)
+void Timer::SetCurrentTime(float currentTime)
 {
     this->currentTime = currentTime;
 

@@ -12,7 +12,7 @@ void WaitForSeconds::StartCommand()
 
 void WaitForSeconds::Update()
 {
-    timeStep += Time::GetInstance().deltaTime;
+    timeStep += Timer::GetInstance().deltaTime;
 }
 
 void WaitForSeconds::EndCommand()

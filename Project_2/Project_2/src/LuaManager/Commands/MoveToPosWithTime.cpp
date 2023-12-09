@@ -24,13 +24,13 @@ void MoveToPosWithTime::StartCommand()
 
 	timeStep = 0;
 
-	startTime = Time::GetInstance().currentTime;
+	startTime = Timer::GetInstance().currentTime;
 }
 
 
 void MoveToPosWithTime::Update()
 {
-	deltaTime = Time::GetInstance().deltaTime;
+	deltaTime = Timer::GetInstance().deltaTime;
 
     /*if (time == 0)
     {

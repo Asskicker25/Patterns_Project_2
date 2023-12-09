@@ -14,16 +14,17 @@ void GameWindow::SetUp()
 
 	RendererInstance::GetInstance().SetRenderer(&renderer);
 
-	camera->SetCameraPosition(glm::vec3(-15, 12, 30));
-	camera->SetCameraRotation(glm::vec3(-10, -5, 0));
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 65.0f);
+
+	camera->transform.SetPosition(glm::vec3(-26, 32, 30));
+	camera->transform.SetRotation(glm::vec3(-20, -90, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
 #pragma region Light
 
-	Model* lightModel = new Model("res/Models/DefaultSphere.fbx",false);
+	Model* lightModel = new Model("res/Models/DefaultSphere.fbx", false);
 	lightModel->transform.SetScale(glm::vec3(0.01f));
 	renderer.AddModel(lightModel, &solidColorShader);
 
@@ -36,7 +37,7 @@ void GameWindow::SetUp()
 
 	City* city = new City();
 	Player* player = new Player();
-	
+
 	TriggerZoneManager::GetInstance().SetShader(&alphaBlendShader);
 
 
@@ -51,22 +52,22 @@ void GameWindow::PreRender()
 
 void GameWindow::PostRender()
 {
-	physicsEngine.Update(Time::GetInstance().deltaTime); 
-	EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
-	CommandManager::GetInstance().Update(Time::GetInstance().deltaTime);
+	physicsEngine.Update(Timer::GetInstance().deltaTime);
+	EntityManager::GetInstance().Update(Timer::GetInstance().deltaTime);
+	CommandManager::GetInstance().Update(Timer::GetInstance().deltaTime);
 }
 
 void GameWindow::ProcessInput(GLFWwindow* window)
 {
 	std::stringstream ssTitle;
 	ssTitle << "Camera Pos : "
-		<< camera->cameraPos.x << " , "
-		<< camera->cameraPos.y << " , "
-		<< camera->cameraPos.z
+		<< camera->transform.position.x << " , "
+		<< camera->transform.position.y << " , "
+		<< camera->transform.position.z
 		<< "  Camera Pitch : "
-		<< camera->cameraPitch
+		<< camera->transform.rotation.x
 		<< "  Camera Yaw : "
-		<< camera->cameraYaw;
+		<< camera->transform.rotation.y;
 
 	std::string theTitle = ssTitle.str();
 

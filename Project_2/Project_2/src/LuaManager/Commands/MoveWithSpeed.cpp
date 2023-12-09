@@ -16,7 +16,7 @@ void MoveWithSpeed::StartCommand()
 
 void MoveWithSpeed::Update()
 {
-	timeStep = CalculateTForSpeed(timeStep, Time::GetInstance().deltaTime, speed);
+	timeStep = CalculateTForSpeed(timeStep, Timer::GetInstance().deltaTime, speed);
 
 	gameObject->model->transform.SetPosition(
 		Lerp(startPos, targetPos, timeStep)

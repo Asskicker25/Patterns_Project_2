@@ -18,7 +18,7 @@
 #include "CubeMapTexture.h"
 #include "SkyBoxMaterial.h"
 #include "DebugCubeData.h"
-#include "Time.h"
+#include "Timer.h"
 
 class ApplicationWindow
 {
