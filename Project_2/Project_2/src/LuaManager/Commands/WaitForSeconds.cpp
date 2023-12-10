@@ -12,6 +12,7 @@ void WaitForSeconds::StartCommand()
 
 void WaitForSeconds::Update()
 {
+  
     timeStep += Timer::GetInstance().deltaTime;
 }
 

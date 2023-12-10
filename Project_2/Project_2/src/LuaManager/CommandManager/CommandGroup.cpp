@@ -84,17 +84,26 @@ void CommandGroup::Update()
 				{
 					command->Update();
 					command->updatedOnce = true;
+					command->inProgress = true;
 					return;
 				}
 			}
 
+		
+
 			if (!command->inProgress)
 			{
+				
 				command->StartCommand();
 				command->inProgress = true;
 			}
 
 			if (command->IsCommandCompleted()) continue;
+
+			if (friendlyName == "CarSpawn")
+			{
+				std::cout << "Updating" << std::endl;
+			}
 
 			command->Update();
 			command->updatedOnce = true;

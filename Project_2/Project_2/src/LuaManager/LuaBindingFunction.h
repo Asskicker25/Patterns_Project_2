@@ -93,7 +93,7 @@ static int AddPoint(lua_State* luaState)
 
 	return 0;
 }
-static int LookAtTangent(lua_State* luaState)
+static int LookAtCurve(lua_State* luaState)
 {
 	FollowCurveWithTime* command = dynamic_cast<FollowCurveWithTime*>
 		(CommandManager::GetInstance().currentCommand);
@@ -300,8 +300,8 @@ void GetCurveTable(lua_State* luaState)
 	lua_pushcfunction(luaState, AddPoint);
 	lua_setfield(luaState, -2, "AddPoint");
 
-	lua_pushcfunction(luaState, LookAtTangent);
-	lua_setfield(luaState, -2, "LookAtTangent");
+	lua_pushcfunction(luaState, LookAtCurve);
+	lua_setfield(luaState, -2, "LookAtCurve");
 
 	lua_pushcfunction(luaState, LookAtOffset);
 	lua_setfield(luaState, -2, "LookAtOffset");

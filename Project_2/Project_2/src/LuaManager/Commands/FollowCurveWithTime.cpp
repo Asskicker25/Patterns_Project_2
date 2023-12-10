@@ -22,11 +22,17 @@ void FollowCurveWithTime::StartCommand()
 
 	startPos = curve->GetCachedPointOnCurve(0);
 	targetPos = curve->GetCachedPointOnCurve(currentPointIndex);
+
+	dir = glm::normalize(targetPos.point - startPos.point);
+
 }
 
 void FollowCurveWithTime::Update()
 {
+
 	if (currentPointIndex >= curve->GetCurveCount()) return;
+
+
 
 	deltaTime = Timer::GetInstance().deltaTime;
 
@@ -58,6 +64,8 @@ void FollowCurveWithTime::Update()
 		lerpValue = timeStep;
 	}
 
+	
+
 	gameObject->GetTransform()->SetPosition(
 		Lerp(startPos.point, targetPos.point, lerpValue)
 	);
@@ -66,9 +74,8 @@ void FollowCurveWithTime::Update()
 
 	if (!lookAtTangent) return;
 
-	tangent = Lerp(startPos.tangent, targetPos.tangent, lerpValue);
 
-	gameObject->GetTransform()->SetOrientationFromDirections(up, -tangent);
+	gameObject->GetTransform()->SetOrientationFromDirections(up, right);
 	gameObject->GetTransform()->SetRotation(gameObject->GetTransform()->rotation + lookAtOffset);
 }
 
@@ -93,6 +100,10 @@ bool FollowCurveWithTime::IsCommandCompleted()
 		lerpValue = 0;
 		startPos = targetPos;
 		targetPos = curve->GetCachedPointOnCurve(currentPointIndex);
+
+		dir = glm::normalize(targetPos.point - startPos.point);
+		right = glm::cross(glm::vec3(0, 1, 0), dir);
+		up = glm::cross(dir, right);
 	}
 
 	return false;

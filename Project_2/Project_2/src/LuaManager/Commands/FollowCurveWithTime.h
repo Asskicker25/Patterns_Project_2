@@ -38,7 +38,8 @@ private:
 	PointOnCurve startPos{ glm::vec3(0), glm::vec3(0) };
 	PointOnCurve targetPos{ glm::vec3(0), glm::vec3(0) };
 
-	glm::vec3 tangent;
+	glm::vec3 right;
+	glm::vec3 dir;
 	glm::vec3 up = glm::vec3(0,1,0);
 	glm::vec3 lookAtOffset = glm::vec3(0);
 
