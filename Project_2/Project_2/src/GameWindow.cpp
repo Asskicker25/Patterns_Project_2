@@ -12,6 +12,8 @@ void GameWindow::SetUp()
 {
 	physicsEngine.fixedStepTime = 0.01f;
 	physicsEngine.gravity.y = 0;
+	moveSpeed = 50;
+
 
 	RendererInstance::GetInstance().SetRenderer(&renderer);
 
@@ -38,6 +40,7 @@ void GameWindow::SetUp()
 
 	City* city = new City();
 	Player* player = new Player();
+	CarManager::GetInstance().LoadLuaScript();
 
 	CameraObject* cameraObject = new CameraObject();
 	cameraObject->camera = camera;

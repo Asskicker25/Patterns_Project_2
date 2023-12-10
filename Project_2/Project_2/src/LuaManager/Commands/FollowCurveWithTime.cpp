@@ -42,7 +42,6 @@ void FollowCurveWithTime::Update()
 	}
 	else if (easeInTime != 0 && timeStepCurve <= easeInRatio)
 	{
-
 		lerpValue = EaseIn(easeInMode, timeStepCurve / easeInRatio);
 		lerpValue *= easeInRatio;
 		lerpValue /= (curve->spacing * currentPointIndex);
@@ -60,10 +59,17 @@ void FollowCurveWithTime::Update()
 	}
 
 	gameObject->GetTransform()->SetPosition(
-		Lerp(startPos, targetPos, lerpValue)
+		Lerp(startPos.point, targetPos.point, lerpValue)
 	);
 
 	curve->DrawCurve();
+
+	if (!lookAtTangent) return;
+
+	tangent = Lerp(startPos.tangent, targetPos.tangent, lerpValue);
+
+	gameObject->GetTransform()->SetOrientationFromDirections(up, -tangent);
+	gameObject->GetTransform()->SetRotation(gameObject->GetTransform()->rotation + lookAtOffset);
 }
 
 void FollowCurveWithTime::EndCommand()
@@ -100,4 +106,14 @@ void FollowCurveWithTime::SetBezierCurve(CubicBezierCurve* curve)
 void FollowCurveWithTime::AddPoint(const glm::vec3& point, const glm::vec3& controlPoint)
 {
 	curve->AddPoint(CubicBezierPoint{ point,controlPoint });
+}
+
+void FollowCurveWithTime::SetLookAtTangent(bool state)
+{
+	this->lookAtTangent = state;
+}
+
+void FollowCurveWithTime::SetLookAtOffset(const glm::vec3& offset)
+{
+	this->lookAtOffset = offset;
 }

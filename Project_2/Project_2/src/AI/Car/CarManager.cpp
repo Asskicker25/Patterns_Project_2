@@ -11,13 +11,21 @@ CarManager::CarManager()
 	carFactory = new CarFactory();
 
 	InitializeEntity(this);
-	
 }
 
 void CarManager::SpawnCar(const std::string& carId, int type)
 {
 	BaseCar* car = carFactory->CreateCar(carId, type);
 	//car->model->transform.SetPosition(glm::vec3(15, 9, 30));
+}
+
+void CarManager::LoadLuaScript()
+{
+	luaState = new LuaState(nullptr);
+	luaState->LoadScript("LuaScripts/CarManager.lua");
+	LuaManager::GetInstance().SetGlobalBinding(luaState->GetState());
+
+	luaState->Execute();
 }
 
 void CarManager::Start()
@@ -35,4 +43,9 @@ void CarManager::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, Phy
 
 void CarManager::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
 {
+}
+
+Transform* CarManager::GetTransform()
+{
+	return nullptr;
 }

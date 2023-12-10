@@ -29,13 +29,13 @@ public:
 	GameObject* GetGameObjectWithID(std::string id);
 
 	void AddGameObject(const std::string& id, GameObject* gameObject);
+	void SetGlobalBinding(lua_State* luaState);
 
 private:
 
 	std::string path = "LuaScripts/World.lua";
 
 	void SetBindingsToState(lua_State* luaState);
-	void SetBindingToGlobalState();
 
 	lua_State* globalState;
 

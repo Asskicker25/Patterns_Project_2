@@ -26,7 +26,7 @@ LuaManager::LuaManager()
 
 	luaL_openlibs(globalState);
 
-	SetBindingToGlobalState();
+	SetGlobalBinding(globalState);
 
 }
 
@@ -47,10 +47,12 @@ lua_State* LuaManager::CreateLuaState(GameObject* gameObject)
 
 	luaL_openlibs(newState);
 
+	SetBindingsToState(newState);
+
+	if (gameObject == nullptr) return newState;
+
 	gameObjectsWithState[newState] = gameObject;
 	gameObjectsWithString[gameObject->entityId] = gameObject;
-
-	SetBindingsToState(newState);
 
 	return newState;
 }
@@ -433,11 +435,11 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 }
 
-void LuaManager::SetBindingToGlobalState()
+void LuaManager::SetGlobalBinding(lua_State* luaState)
 {
 #pragma region BindGameObject
 
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
 		{
 			int argCount = lua_gettop(luaState);
 
@@ -458,20 +460,20 @@ void LuaManager::SetBindingToGlobalState()
 			return 0;
 		});
 
-	lua_setglobal(globalState, "BindGameObject");
+	lua_setglobal(luaState, "BindGameObject");
 
 #pragma endregion
 
 #pragma region GetFloat
 
-	lua_pushcfunction(globalState, [](lua_State* luaState)->int
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
 		{
 			lua_pushnumber(luaState, 5);
 
 			return 1;
 		});
 
-	lua_setglobal(globalState, "GetFloat");
+	lua_setglobal(luaState, "GetFloat");
 
 #pragma endregion
 

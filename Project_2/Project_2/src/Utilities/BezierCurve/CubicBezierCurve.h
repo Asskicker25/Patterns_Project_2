@@ -17,6 +17,18 @@ struct CubicBezierPoint
 
 };
 
+struct PointOnCurve
+{
+	glm::vec3 point;
+	glm::vec3 tangent;
+
+	PointOnCurve(const glm::vec3& point, const glm::vec3& tangent)
+	{
+		this->point = point;
+		this->tangent = tangent;
+	}
+};
+
 class CubicBezierCurve
 {
 public:
@@ -32,7 +44,7 @@ public:
 
 	void AddPoint(CubicBezierPoint point);
 
-	glm::vec3 GetCachedPointOnCurve(int index);
+	PointOnCurve GetCachedPointOnCurve(int index);
 
 private:
 
@@ -41,9 +53,9 @@ private:
 	bool visualize = true;
 
 	std::vector<CubicBezierPoint> listOfPoints;
-	std::vector<glm::vec3> listOfPointsOnCurve;
+	std::vector<PointOnCurve> listOfPointsOnCurve;
 
-	glm::vec3 GetPointOnCurve(float t) const;
+	PointOnCurve GetPointOnCurve(float t) const;
 
 };
 

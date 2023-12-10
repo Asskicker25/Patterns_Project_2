@@ -93,6 +93,49 @@ static int AddPoint(lua_State* luaState)
 
 	return 0;
 }
+static int LookAtTangent(lua_State* luaState)
+{
+	FollowCurveWithTime* command = dynamic_cast<FollowCurveWithTime*>
+		(CommandManager::GetInstance().currentCommand);
+
+	int argCount = lua_gettop(luaState);
+
+	if (argCount >= 1)
+	{
+		float boolean = luaL_checknumber(luaState, 1);
+
+		command->SetLookAtTangent(boolean);
+
+		GetCurveTable(luaState);
+		return 1;
+	}
+
+	return 0;
+}
+static int LookAtOffset(lua_State* luaState)
+{
+	FollowCurveWithTime* command = dynamic_cast<FollowCurveWithTime*>
+		(CommandManager::GetInstance().currentCommand);
+
+	int argCount = lua_gettop(luaState);
+
+	if (argCount >= 3)
+	{
+		glm::vec3 offset;
+
+		offset.x = luaL_checknumber(luaState, 1);
+		offset.y = luaL_checknumber(luaState, 2);
+		offset.z = luaL_checknumber(luaState, 3);
+
+		command->SetLookAtOffset(offset);
+
+		GetCurveTable(luaState);
+
+		return 1;
+	}
+
+	return 0;
+}
 static int SetFollowDistance(lua_State* luaState)
 {
 	FollowObject* command = dynamic_cast<FollowObject*>
@@ -256,6 +299,12 @@ void GetCurveTable(lua_State* luaState)
 
 	lua_pushcfunction(luaState, AddPoint);
 	lua_setfield(luaState, -2, "AddPoint");
+
+	lua_pushcfunction(luaState, LookAtTangent);
+	lua_setfield(luaState, -2, "LookAtTangent");
+
+	lua_pushcfunction(luaState, LookAtOffset);
+	lua_setfield(luaState, -2, "LookAtOffset");
 
 }
 void GetFollowObjectTable(lua_State* luaState)

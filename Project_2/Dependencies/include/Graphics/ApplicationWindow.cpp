@@ -292,11 +292,11 @@ void ApplicationWindow::MoveCameraKeyBoard(GLFWwindow* window)
 	{
 		camera->transform.position += glm::cross(camera->transform.GetForward(), camera->transform.GetUp()) * speed;
 	}
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 	{
 		camera->transform.position -= camera->transform.GetUp() * speed;
 	}
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 	{
 		camera->transform.position += camera->transform.GetUp() * speed;
 	}

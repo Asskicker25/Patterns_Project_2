@@ -27,9 +27,9 @@ void CubicBezierCurve::DrawCurve()
 {
     if (!visualize) return;
 
-    for(glm::vec3 point : listOfPointsOnCurve)
+    for(PointOnCurve point : listOfPointsOnCurve)
     { 
-        renderer->DrawCube(point, glm::vec3(0), glm::vec3(0.1f), glm::vec4(1, 0, 0, 1), false);
+        renderer->DrawCube(point.point, glm::vec3(0), glm::vec3(0.1f), glm::vec4(1, 0, 0, 1), false);
     }
 }
 
@@ -43,37 +43,55 @@ void CubicBezierCurve::AddPoint(CubicBezierPoint point)
 	listOfPoints.push_back(point);
 }
 
-glm::vec3 CubicBezierCurve::GetCachedPointOnCurve(int index)
+PointOnCurve CubicBezierCurve::GetCachedPointOnCurve(int index)
 {
     return listOfPointsOnCurve[index];
 }
 
-glm::vec3 CubicBezierCurve::GetPointOnCurve(float t) const
-{
-    if (listOfPoints.size() < 2) 
-    {
+PointOnCurve CubicBezierCurve::GetPointOnCurve(float t) const {
+    int numPoints = static_cast<int>(listOfPoints.size());
+
+    if (numPoints < 2) {
         std::cout << "Insufficient points to create a Bezier curve." << std::endl;
-        return glm::vec3(0.0f);
+        return PointOnCurve(glm::vec3(0.0f), glm::vec3(0.0f));
     }
 
-    glm::vec3 p0 = listOfPoints[0].point;
-    glm::vec3 c0 = listOfPoints[0].controlPoint;
+    std::vector<glm::vec3> points;
+    std::vector<glm::vec3> controlPoints;
 
-    glm::vec3 p1 = listOfPoints[1].point;
-    glm::vec3 c1 = listOfPoints[1].controlPoint;
+    for (const CubicBezierPoint& bezierPoint : listOfPoints) {
+        points.push_back(bezierPoint.point);
+        controlPoints.push_back(bezierPoint.controlPoint);
+    }
 
-    // Use De Casteljau's algorithm for cubic Bezier curve
-    glm::vec3 q0 = p0 + t * (c0 - p0);
-    glm::vec3 q1 = c0 + t * (c1 - c0);
-    glm::vec3 q2 = q0 + t * (q1 - q0);
+    glm::vec3 tangent = glm::vec3(0.0f);
 
-    glm::vec3 r0 = c1 + t * (p1 - c1);
-    glm::vec3 r1 = q1 + t * (r0 - q1);
-    glm::vec3 r2 = r1 + t * (r0 - r1);
+    while (points.size() > 1) {
+        std::vector<glm::vec3> nextPoints;
+        std::vector<glm::vec3> nextControlPoints;
 
-    glm::vec3 pointOnCurve = q2 + t * (r2 - q2);
+        for (size_t i = 0; i < points.size() - 1; ++i) {
+            glm::vec3 p0 = points[i];
+            glm::vec3 p1 = points[i + 1];
+            glm::vec3 controlPoint = controlPoints[i];
+            glm::vec3 q0 = p0 + t * (controlPoint - p0);
+            glm::vec3 q1 = controlPoint + t * (p1 - controlPoint);
+            glm::vec3 q2 = q0 + t * (q1 - q0);
 
-    return pointOnCurve;
+            nextPoints.push_back(q2);
+            nextControlPoints.push_back(controlPoint);
+        }
+
+        // Calculate the tangent at the last point
+        tangent = (nextPoints.back() - points.back());
+
+        points = nextPoints;
+        controlPoints = nextControlPoints;
+    }
+
+    // Normalize the tangent to get the right vector
+    glm::vec3 rightVector = (glm::length(tangent) > 0.0f) ? glm::normalize(tangent) :
+        listOfPointsOnCurve[listOfPointsOnCurve.size() - 1].tangent;
+
+    return PointOnCurve(points.back(), rightVector);
 }
-
-
