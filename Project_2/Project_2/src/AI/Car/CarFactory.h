@@ -16,6 +16,8 @@ private:
 	PhysicsEngine* physicsEngine;
 
 	Model* yellowCar;
+	Model* blueCar;
+	Model* redCar;
 
 	void CacheCarModels();
 };

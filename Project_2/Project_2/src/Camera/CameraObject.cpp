@@ -4,6 +4,7 @@
 CameraObject::CameraObject()
 {
 	LuaManager::GetInstance().AddGameObject("Camera", this);
+	entityId = "Camera";
 }
 
 void CameraObject::Start()

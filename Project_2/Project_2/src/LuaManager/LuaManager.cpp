@@ -387,7 +387,9 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 				CommandManager::GetInstance().AddCommand(command);
 
-				return 0;
+				GetLookAtTable(luaState);
+
+				return 1;
 			}
 			return 0;
 		});

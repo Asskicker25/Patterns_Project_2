@@ -2,8 +2,8 @@
 
 LookAt::LookAt(GameObject* gameObject, GameObject* lookAtObject)
 {
-    this->gameObject = gameObject;
-    this->lookAtObject = lookAtObject;
+	this->gameObject = gameObject;
+	this->lookAtObject = lookAtObject;
 }
 
 void LookAt::StartCommand()
@@ -12,13 +12,18 @@ void LookAt::StartCommand()
 
 void LookAt::Update()
 {
-    diff = lookAtObject->GetTransform()->position - gameObject->GetTransform()->position;
-    dir = glm::normalize(diff);
 
-    right = glm::cross(glm::vec3(0, 1, 0), dir);
-    up = glm::cross(dir, right);
+	diff = lookAtObject->GetTransform()->position - gameObject->GetTransform()->position;
+	dir = glm::normalize(diff);
 
-    gameObject->GetTransform()->SetOrientationFromDirections(up, right);
+	right = glm::cross(glm::vec3(0, 1, 0), dir);
+	up = glm::cross(dir, right);
+
+	gameObject->GetTransform()->SetOrientationFromDirections(up, right);
+
+	if (gameObject->entityId == "Camera") return;
+
+	gameObject->GetTransform()->SetRotation(gameObject->GetTransform()->rotation + lookAtOffset);
 }
 
 void LookAt::EndCommand()
@@ -27,5 +32,10 @@ void LookAt::EndCommand()
 
 bool LookAt::IsCommandCompleted()
 {
-    return false;
+	return false;
+}
+
+void LookAt::SetLookAtOffset(const glm::vec3& offset)
+{
+	this->lookAtOffset = offset;
 }

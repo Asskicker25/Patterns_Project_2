@@ -12,11 +12,13 @@ extern "C"
 #include "Commands/WaitForSeconds.h"
 #include "Commands/FollowCurveWithTime.h"
 #include "Commands/FollowObject.h"
+#include "Commands/LookAt.h"
 
 static void GetEaseTable(lua_State* luaState);
 static void GetCurveTable(lua_State* luaState);
 static void GetFollowObjectTable(lua_State* luaState);
 static void GetCommandGroupTable(lua_State* luaState);
+static void GetLookAtTable(lua_State* luaState);
 
 static int EaseIn(lua_State* luaState)
 {
@@ -206,6 +208,29 @@ static int SetCollisionCondition(lua_State* luaState)
 	}
 	return 0;
 }
+static int SetLookAtOffset(lua_State* luaState)
+{
+	LookAt* command = dynamic_cast<LookAt*>
+		(CommandManager::GetInstance().currentCommand);
+
+	int argCount = lua_gettop(luaState);
+
+	if (argCount >= 3)
+	{
+		glm::vec3 offset;
+
+		offset.x = luaL_checknumber(luaState, 1);
+		offset.y = luaL_checknumber(luaState, 2);
+		offset.z = luaL_checknumber(luaState, 3);
+
+		command->SetLookAtOffset(offset);
+
+		GetFollowObjectTable(luaState);
+		return 1;
+	}
+	return 0;
+
+}
 
 void GetEaseTable(lua_State* luaState)
 {
@@ -258,4 +283,12 @@ void GetCommandGroupTable(lua_State* luaState)
 
 	lua_pushcfunction(luaState, SetCollisionCondition);
 	lua_setfield(luaState, -2, "SetCollisionCondition");
+}
+
+void GetLookAtTable(lua_State* luaState)
+{
+	lua_newtable(luaState);
+
+	lua_pushcfunction(luaState, SetLookAtOffset);
+	lua_setfield(luaState, -2, "SetLookAtOffset");
 }

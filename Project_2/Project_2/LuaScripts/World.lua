@@ -33,7 +33,7 @@ BeginCommandGroup("CarSpawn","Parallel")
     MoveWithTime(30, 9, 30,0)
     RotateWithTime(-90,90,0,0);
 
-    SpawnCar("Car2",0)
+    SpawnCar("Car2",1)
     BindGameObject("Car2") 
     MoveWithTime(-10, 9, 30,0)
     
@@ -46,6 +46,7 @@ BeginCommandGroup("CarSpawn","Parallel")
 
     BindGameObject("Car2") 
     FollowObject("Car1").SetFollowDistance(20).SetFollowOffset(0,0,0).SetMaxSpeed(0.01).SetDeaccelerationRange(30).SetAccelerationRange(60)
+    LookAt("Car1").SetLookAtOffset(-90,180,0)
 
 EndCommandGroup("CarSpawn")
 
@@ -58,6 +59,6 @@ BeginCommandGroup("Camera","Parallel")
 
     FollowObject("Car2").SetFollowDistance(10).SetFollowOffset(-10,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
    
-    LookAt("Car2")
+    LookAt("Car2").SetLookAtOffset(10,0,0)
 
 EndCommandGroup("Camera")
