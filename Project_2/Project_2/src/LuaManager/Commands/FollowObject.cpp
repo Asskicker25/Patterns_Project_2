@@ -2,10 +2,11 @@
 #include "../../Utilities/Lerp.h"
 #include "../../Utilities/Remap.h"
 
-FollowObject::FollowObject(GameObject* followObject, GameObject* targetObject)
+FollowObject::FollowObject(GameObject* followObject, GameObject* targetObject, float time)
 {
 	this->followObject = followObject;
 	this->targetObject = targetObject;
+	this->time = time;
 }
 
 void FollowObject::StartCommand()
@@ -18,6 +19,8 @@ void FollowObject::StartCommand()
 void FollowObject::Update()
 {
 	deltaTime = Timer::GetInstance().deltaTime;
+
+	timeElapsed += deltaTime;
 
 	startPos = followObject->GetTransform()->position;
 	targetPos = targetObject->GetTransform()->position + followOffset;
@@ -63,6 +66,11 @@ void FollowObject::EndCommand()
 
 bool FollowObject::IsCommandCompleted()
 {
+	if (timeElapsed >= time)
+	{
+		return true;
+	}
+	
 	return false;
 }
 

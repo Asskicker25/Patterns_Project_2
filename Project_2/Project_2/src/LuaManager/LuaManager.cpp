@@ -344,16 +344,17 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 		{
 			int argCount = lua_gettop(luaState);
 
-			if (argCount >= 1)
+			if (argCount >= 2)
 			{
 				std::string objectId = luaL_checkstring(luaState, 1);
+				float time = luaL_checknumber(luaState, 2);
 				
 				GameObject* targetObj = LuaManager::GetInstance().GetGameObjectWithID(objectId);
 
 
 				FollowObject* command = new FollowObject(
 
-					CommandManager::GetInstance().GetBoundGameObject(), targetObj
+					CommandManager::GetInstance().GetBoundGameObject(), targetObj, time
 				);
 
 				CommandManager::GetInstance().AddCommand(command);
@@ -379,12 +380,13 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 			if (argCount >= 1)
 			{
 				std::string objectId = luaL_checkstring(luaState, 1);
+				float time = luaL_checknumber(luaState, 2);
 
 				GameObject* targetObj = LuaManager::GetInstance().GetGameObjectWithID(objectId);
 
 				LookAt* command = new LookAt(
 
-					CommandManager::GetInstance().GetBoundGameObject(), targetObj
+					CommandManager::GetInstance().GetBoundGameObject(), targetObj, time
 				);
 
 				CommandManager::GetInstance().AddCommand(command);

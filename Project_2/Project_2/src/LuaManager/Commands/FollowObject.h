@@ -7,7 +7,7 @@ class FollowObject : public BaseCommand
 
 public:
 
-	FollowObject(GameObject* followObject, GameObject* targetObject);
+	FollowObject(GameObject* followObject, GameObject* targetObject, float time);
 
 	// Inherited via BaseCommand
 	void StartCommand() override;
@@ -23,7 +23,9 @@ public:
 
 private:
 
+	float time = 0;
 	float timeStep = 0;
+	float timeElapsed = 0;
 	float deltaTime = 0;
 	float followDistance = 10;
 	float speed = 0;

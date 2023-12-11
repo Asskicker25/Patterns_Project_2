@@ -23,7 +23,6 @@ void City::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEn
 	model->LoadModel("Assets/Models/FullCity.fbx");
 	model->transform.SetRotation(glm::vec3(-90.0f,0,0));
 	model->transform.SetScale(glm::vec3(1.0f));
-	model->isWireframe = true;
 
 	renderer->AddModel(model, shader);
 

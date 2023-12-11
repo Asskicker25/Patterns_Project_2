@@ -7,7 +7,7 @@ class LookAt : public BaseCommand
 
 public:
 
-	LookAt(GameObject* gameObject, GameObject* lookAtObject);
+	LookAt(GameObject* gameObject, GameObject* lookAtObject, float time);
 
 	// Inherited via BaseCommand
 	void StartCommand() override;
@@ -18,6 +18,9 @@ public:
 	void SetLookAtOffset(const glm::vec3& offset);
 
 private:
+
+	float time = 0;
+	float timeElapsed = 0;
 
 	glm::vec3 diff = glm::vec3(0);
 	glm::vec3 dir = glm::vec3(0);

@@ -13,5 +13,15 @@ BeginCommandGroup("InitialCameraMove","Parallel")
     .AddPoint(222,140,104,  222,140,104)
     .AddPoint(157,73,332, 157,73,332).AddPoint(158,31,347,  158,31,347).EaseIn("Sine",2)
     .EaseOut("Circ",2)
+
+EndCommandGroup("InitialCameraMove")
+
+
+BindGameObject("Camera") 
+BeginCommandGroup("CarFollow","Parallel")
     
+    WaitForSeconds(4)
+    FollowObject("PatrolCar1",15).SetFollowDistance(10).SetFollowOffset(10,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
+    --LookAt("PatrolCar1",15)
+
 EndCommandGroup("InitialCameraMove")
