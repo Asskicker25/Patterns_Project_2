@@ -96,8 +96,7 @@ bool FollowCurveWithTime::IsCommandCompleted()
 
 		if (currentPointIndex >= curve->GetCurveCount())
 		{
-			currentPointIndex--;
-			return false;
+			return true;
 		}
 
 		timeStep = 0;

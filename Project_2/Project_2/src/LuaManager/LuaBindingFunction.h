@@ -95,6 +95,27 @@ static int AddPoint(lua_State* luaState)
 
 		return 1;
 	}
+	else if (argCount >= 6)
+	{
+		glm::vec3 point;
+		glm::vec3 controlPoint;
+		glm::vec3 rotationOffset = glm::vec3(0);
+
+		point.x = luaL_checknumber(luaState, 1);
+		point.y = luaL_checknumber(luaState, 2);
+		point.z = luaL_checknumber(luaState, 3);
+
+		controlPoint.x = luaL_checknumber(luaState, 4) + point.x;
+		controlPoint.y = luaL_checknumber(luaState, 5) + point.y;
+		controlPoint.z = luaL_checknumber(luaState, 6) + point.z;
+	
+
+		command->AddPoint(point, controlPoint, rotationOffset);
+
+		GetCurveTable(luaState);
+
+		return 1;
+	}
 
 	return 0;
 }
