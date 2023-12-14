@@ -8,25 +8,12 @@ Player::Player()
 
 	InitializeEntity(this);
 
-	bezierPath = new CubicBezierCurve(0.01f);
-
 	entityId = "Player";
 	tag = "Player";
 
 	luaState = new LuaState( this);
 	luaState->LoadScript("LuaScripts/Player.lua");
 
-	followCurve = new FollowCurveWithTime(this,5);
-	followCurve->easeInTime = 2;
-	followCurve->easeOutTime = 2;
-
-
-	bezierPath->AddPoint(CubicBezierPoint{ glm::vec3(-5,9,30), glm::vec3(10,9,0) });
-	bezierPath->AddPoint(CubicBezierPoint{ glm::vec3(40,9,30), glm::vec3(30,9,60) });
-
-	followCurve->SetBezierCurve(bezierPath);
-
-	followCurve->StartCommand();
 
 	CommandManager::GetInstance().BindGameObject(this);
 

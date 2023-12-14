@@ -8,11 +8,13 @@ struct CubicBezierPoint
 {
 	glm::vec3 point;
 	glm::vec3 controlPoint;
+	glm::vec3 rotationOffset;
 
-	CubicBezierPoint(const glm::vec3& point, const glm::vec3& controlPoint)
+	CubicBezierPoint(const glm::vec3& point, const glm::vec3& controlPoint, glm::vec3 rotationOffset)
 	{
 		this->point = point;
 		this->controlPoint = controlPoint;
+		this->rotationOffset = rotationOffset;
 	}
 
 };
@@ -21,11 +23,13 @@ struct PointOnCurve
 {
 	glm::vec3 point;
 	glm::vec3 tangent;
+	glm::vec3 rotationOffset;
 
-	PointOnCurve(const glm::vec3& point, const glm::vec3& tangent)
+	PointOnCurve(const glm::vec3& point, const glm::vec3& tangent, glm::vec3 rotationOffset)
 	{
 		this->point = point;
 		this->tangent = tangent;
+		this->rotationOffset = rotationOffset;
 	}
 };
 

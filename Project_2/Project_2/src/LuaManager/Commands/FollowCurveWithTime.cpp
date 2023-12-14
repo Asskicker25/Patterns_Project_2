@@ -70,13 +70,16 @@ void FollowCurveWithTime::Update()
 		Lerp(startPos.point, targetPos.point, lerpValue)
 	);
 
+	glm::vec3 rotationOffset = Lerp(startPos.rotationOffset, targetPos.rotationOffset, lerpValue);
+
 	curve->DrawCurve();
 
 	if (!lookAtTangent) return;
 
-
 	gameObject->GetTransform()->SetOrientationFromDirections(up, right);
-	gameObject->GetTransform()->SetRotation(gameObject->GetTransform()->rotation + lookAtOffset);
+	gameObject->GetTransform()->SetRotation(gameObject->GetTransform()->rotation + lookAtOffset + rotationOffset);
+
+	Debugger::Print("RotationOffset :", rotationOffset);
 }
 
 void FollowCurveWithTime::EndCommand()
@@ -93,7 +96,8 @@ bool FollowCurveWithTime::IsCommandCompleted()
 
 		if (currentPointIndex >= curve->GetCurveCount())
 		{
-			return true;
+			currentPointIndex--;
+			return false;
 		}
 
 		timeStep = 0;
@@ -114,9 +118,9 @@ void FollowCurveWithTime::SetBezierCurve(CubicBezierCurve* curve)
 	this->curve = curve;
 }
 
-void FollowCurveWithTime::AddPoint(const glm::vec3& point, const glm::vec3& controlPoint)
+void FollowCurveWithTime::AddPoint(const glm::vec3& point, const glm::vec3& controlPoint, const glm::vec3& rotationOffset)
 {
-	curve->AddPoint(CubicBezierPoint{ point,controlPoint });
+	curve->AddPoint(CubicBezierPoint{ point,controlPoint, rotationOffset });
 }
 
 void FollowCurveWithTime::SetLookAtTangent(bool state)

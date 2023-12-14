@@ -17,7 +17,7 @@ public:
 	bool IsCommandCompleted() override;
 
 	void SetBezierCurve(CubicBezierCurve* curve);
-	void AddPoint(const glm::vec3& point, const glm::vec3& controlPoint);
+	void AddPoint(const glm::vec3& point, const glm::vec3& controlPoint, const glm::vec3& rotationOffset);
 	void SetLookAtTangent(bool state);
 	void SetLookAtOffset(const glm::vec3& offset);
 
@@ -35,8 +35,8 @@ private:
 
 	float timeStepCurve = 0;
 
-	PointOnCurve startPos{ glm::vec3(0), glm::vec3(0) };
-	PointOnCurve targetPos{ glm::vec3(0), glm::vec3(0) };
+	PointOnCurve startPos{ glm::vec3(0), glm::vec3(0),  glm::vec3(0) };
+	PointOnCurve targetPos{ glm::vec3(0), glm::vec3(0),glm::vec3(0) };
 
 	glm::vec3 right;
 	glm::vec3 dir;
