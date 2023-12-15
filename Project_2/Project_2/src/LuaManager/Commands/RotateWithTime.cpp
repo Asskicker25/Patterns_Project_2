@@ -51,6 +51,8 @@ void RotateWithTime::Update()
 
 void RotateWithTime::EndCommand()
 {
+    timeStep = 0;
+    inProgress = false;
 }
 
 bool RotateWithTime::IsCommandCompleted()

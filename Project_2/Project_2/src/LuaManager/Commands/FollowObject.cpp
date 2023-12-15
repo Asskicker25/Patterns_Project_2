@@ -62,6 +62,8 @@ void FollowObject::Update()
 
 void FollowObject::EndCommand()
 {
+	timeElapsed = 0;
+	inProgress = false;
 }
 
 bool FollowObject::IsCommandCompleted()

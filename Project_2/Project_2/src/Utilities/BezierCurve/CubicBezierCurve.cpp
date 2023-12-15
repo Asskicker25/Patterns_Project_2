@@ -30,13 +30,13 @@ void CubicBezierCurve::DrawCurve()
 
 	for (PointOnCurve point : listOfPointsOnCurve)
 	{
-		renderer->DrawCube(point.point, glm::vec3(0), glm::vec3(0.1f), glm::vec4(1, 0, 0, 1), false);
+		renderer->DrawSphere(point.point, 0.1f, glm::vec4(1, 0, 0, 1));
 	}
 
 	for (CubicBezierPoint point : listOfPoints)
 	{
-		renderer->DrawCube(point.point, glm::vec3(0), glm::vec3(0.5f), glm::vec4(0, 1, 0, 1), false);
-		renderer->DrawCube(point.controlPoint, glm::vec3(0), glm::vec3(0.5f), glm::vec4(0, 0, 1, 1), false);
+		renderer->DrawSphere(point.point, 0.1f, glm::vec4(0, 1, 0, 1));
+		renderer->DrawSphere(point.point, 0.1f, glm::vec4(00, 0, 1, 1));
 	}
 }
 
@@ -74,10 +74,10 @@ PointOnCurve CubicBezierCurve::GetPointOnCurve(float time) const
 	float t = (time - startIndex * segment) / segment;
 
 
-	Debugger::Print("StartIndex :", startIndex);
+	/*Debugger::Print("StartIndex :", startIndex);
 	Debugger::Print("EndIndex :", endIndex);
 	Debugger::Print("Time :", time);
-	Debugger::Print("T :", t);
+	Debugger::Print("T :", t);*/
 
 	CubicBezierPoint point1 = listOfPoints[startIndex];
 	CubicBezierPoint point2 = listOfPoints[endIndex];

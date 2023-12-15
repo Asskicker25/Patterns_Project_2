@@ -89,6 +89,8 @@ void MoveToPosWithTime::Update()
 
 void MoveToPosWithTime::EndCommand()
 {
+	lerpValue = 0;
+	inProgress = false;
 }
 
 bool MoveToPosWithTime::IsCommandCompleted()

@@ -38,6 +38,8 @@ void LookAt::Update()
 
 void LookAt::EndCommand()
 {
+	timeElapsed = 0;
+	inProgress = false;
 }
 
 bool LookAt::IsCommandCompleted()

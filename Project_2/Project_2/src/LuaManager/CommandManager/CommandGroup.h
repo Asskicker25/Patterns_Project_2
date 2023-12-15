@@ -35,5 +35,8 @@ public:
 
 	CommandGroup* parentGroup = nullptr;
 
+private:
+	int currentRepeatIndex = 0;
+
 };
 

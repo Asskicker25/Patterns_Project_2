@@ -18,6 +18,8 @@ void WaitForSeconds::Update()
 
 void WaitForSeconds::EndCommand()
 {
+    timeStep = 0;
+    inProgress = false;
 }
 
 bool WaitForSeconds::IsCommandCompleted()

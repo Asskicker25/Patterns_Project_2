@@ -56,9 +56,14 @@ void CommandGroup::Update()
 {
 	if (groupType == SEQUENCE)
 	{
+		int i = 0;
 		for (BaseCommand* command : listOfCommands)
 		{
-			if (command->IsCommandCompleted()) continue;
+			if (command->IsCommandCompleted())
+			{
+				i++;
+				continue;
+			}
 
 			if (!command->inProgress)
 			{
@@ -70,6 +75,19 @@ void CommandGroup::Update()
 			command->updatedOnce = true;
 
 			return;
+		}
+
+		if (i == listOfCommands.size())
+		{
+			currentRepeatIndex++;
+
+			if (currentRepeatIndex <= repeatCount)
+			{
+				for (BaseCommand* command : listOfCommands)
+				{
+					command->EndCommand();
+				}
+			}
 		}
 	}
 	else if (groupType == PARALLEL)

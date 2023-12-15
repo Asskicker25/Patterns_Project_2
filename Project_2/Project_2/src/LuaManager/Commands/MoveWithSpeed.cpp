@@ -25,6 +25,8 @@ void MoveWithSpeed::Update()
 
 void MoveWithSpeed::EndCommand()
 {
+	timeStep = 0;
+	inProgress = false;
 }
 
 bool MoveWithSpeed::IsCommandCompleted()

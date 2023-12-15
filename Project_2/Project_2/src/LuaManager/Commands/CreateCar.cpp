@@ -19,6 +19,7 @@ void CreateCar::Update()
 
 void CreateCar::EndCommand()
 {
+    spawned = false;
 }
 
 bool CreateCar::IsCommandCompleted()
