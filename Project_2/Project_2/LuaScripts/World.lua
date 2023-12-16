@@ -2,10 +2,10 @@
 BindGameObject("Camera") 
 BeginCommandGroup("InitialCameraMove","Parallel")
 
-    MoveWithTime(158,31,347,0)
+    MoveWithTime(290,125,-36,0)
     RotateWithTime(-23,-230,0,0);
 
-    WaitForSeconds(0.1)
+    WaitForSeconds(1)
 
     RotateWithTime(-36,-271,0,1).EaseIn("Sine",1);
     
@@ -21,7 +21,7 @@ BindGameObject("Camera")
 BeginCommandGroup("CarFollow","Parallel")
     
     WaitForSeconds(4)
-    FollowObject("PatrolCar1",6).SetFollowDistance(10).SetFollowOffset(10,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
+    FollowObject("PatrolCar1",55).SetFollowDistance(20).SetFollowOffset(0,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
     --LookAt("PatrolCar1",15)
 
 EndCommandGroup("InitialCameraMove")

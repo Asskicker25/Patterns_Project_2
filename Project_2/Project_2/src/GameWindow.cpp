@@ -38,6 +38,8 @@ void GameWindow::SetUp()
 
 #pragma endregion
 
+	TriggerZoneManager::GetInstance().SetShader(&alphaBlendShader);
+
 	City* city = new City();
 	Player* player = new Player();
 	CarManager::GetInstance().LoadLuaScript();
@@ -46,7 +48,6 @@ void GameWindow::SetUp()
 	cameraObject->camera = camera;
 
 
-	TriggerZoneManager::GetInstance().SetShader(&alphaBlendShader);
 
 
 	EntityManager::GetInstance().Start();
