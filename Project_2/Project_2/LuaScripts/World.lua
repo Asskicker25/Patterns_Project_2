@@ -18,14 +18,20 @@ EndCommandGroup("InitialCameraMove")
 
 
 BindGameObject("Camera") 
-BeginCommandGroup("CarFollow","Serial")
+BeginCommandGroup("CarFollow","Parallel")
     
     WaitForSeconds(4)
     FollowObject("PatrolCar1",19).SetFollowDistance(20).SetFollowOffset(0,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
+    LookAt("PatrolCar1",19)
 
-    WaitForSeconds(1)
-    FollowObject("PatrolCar2",19).SetFollowDistance(20).SetFollowOffset(0,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
-    --LookAt("PatrolCar1",15)
+    WaitForSeconds(20)
+
+    FollowObject("PatrolCar2",21).SetFollowDistance(20).SetFollowOffset(0,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
+    LookAt("PatrolCar2",21)
+
+    WaitForSeconds(21)
+    FollowObject("PatrolCar1",-1).SetFollowDistance(20).SetFollowOffset(0,10,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
+    LookAt("PatrolCar1",-1)
 
 EndCommandGroup("InitialCameraMove")
 

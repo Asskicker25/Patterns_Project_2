@@ -23,15 +23,15 @@ void LookAt::Update()
 
 	gameObject->GetTransform()->SetOrientationFromDirections(up, right);
 
-	if (gameObject->entityId == "Camera")
-	{
-		float pitch = gameObject->GetTransform()->rotation.x;
-		pitch = glm::clamp(pitch, -89.0f, 89.0f);
-		gameObject->GetTransform()->SetRotation(glm::vec3(pitch,
-			gameObject->GetTransform()->rotation.y,0));
+	//if (gameObject->entityId == "Camera")
+	//{
+	//	float pitch = gameObject->GetTransform()->rotation.x;
+	//	//pitch = glm::clamp(pitch, -89.0f, 89.0f);
+	//	gameObject->GetTransform()->SetRotation(glm::vec3(pitch,
+	//		gameObject->GetTransform()->rotation.y,0));
 
-		return;
-	}
+	//	return;
+	//}
 
 	gameObject->GetTransform()->SetRotation(gameObject->GetTransform()->rotation + lookAtOffset);
 }
@@ -44,6 +44,7 @@ void LookAt::EndCommand()
 
 bool LookAt::IsCommandCompleted()
 {
+	if (time == -1) return false;
 	if (timeElapsed >= time)
 	{
 		return true;

@@ -68,6 +68,8 @@ void FollowObject::EndCommand()
 
 bool FollowObject::IsCommandCompleted()
 {
+	if (time == -1) return false;
+
 	if (timeElapsed >= time)
 	{
 		return true;

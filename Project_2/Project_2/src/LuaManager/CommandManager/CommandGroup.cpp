@@ -77,11 +77,11 @@ void CommandGroup::Update()
 			return;
 		}
 
-		if (i == listOfCommands.size())
+		if (repeatCount == -1 || i == listOfCommands.size())
 		{
 			currentRepeatIndex++;
 
-			if (currentRepeatIndex <= repeatCount)
+			if (repeatCount == -1 || currentRepeatIndex <= repeatCount)
 			{
 				for (BaseCommand* command : listOfCommands)
 				{

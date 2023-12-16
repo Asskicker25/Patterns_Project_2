@@ -19,6 +19,7 @@ void SetCollisionState::Update()
 void SetCollisionState::EndCommand()
 {
     isStateUpdated = false;
+    inProgress = false;
 }
 
 bool SetCollisionState::IsCommandCompleted()

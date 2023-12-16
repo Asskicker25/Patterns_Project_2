@@ -111,6 +111,9 @@
     <ClCompile Include="src\LuaManager\Commands\SetCollisionState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\LuaManager\Commands\ChangeColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EntityManager\Entity.h">
@@ -222,6 +225,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LuaManager\Commands\SetCollisionState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LuaManager\Commands\ChangeColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

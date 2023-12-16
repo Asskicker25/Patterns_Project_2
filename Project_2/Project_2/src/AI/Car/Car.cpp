@@ -45,7 +45,7 @@ void Car::Start()
 
 void Car::Update(float deltaTime)
 {
-	renderer->DrawAABB(GetGraphicsAabb(phyObj->GetModelAABB()));
+	renderer->DrawAABB(GetGraphicsAabb(phyObj->GetModelAABB()),glm::vec4(0,0,1,1), false);
 }
 
 void Car::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)

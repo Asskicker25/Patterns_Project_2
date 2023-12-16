@@ -10,7 +10,7 @@ BeginCommandGroup("CarSpawn","Parallel")
 EndCommandGroup("CarSpawn")
 
 BindGameObject("PatrolCar1") 
-BeginCommandGroup("PatrolCar1Move","Serial",1)
+BeginCommandGroup("PatrolCar1Move","Serial", -1)
 
     WaitForSeconds(3)
 
@@ -45,7 +45,7 @@ EndCommandGroup("PatrolCar1Move")
 
 BindGameObject("PatrolCar1")
 BeginCommandGroup("SpawningTruck", "Parallel").SetCollisionCondition("SpawnTruck")
-    
+
     SpawnCar("PatrolCar2",1)
     BindGameObject("PatrolCar2") 
     MoveWithTime(0,2,346,0)
@@ -57,6 +57,7 @@ EndCommandGroup("SpawningTruck")
 BindGameObject("PatrolCar1")
 BeginCommandGroup("MovingTruck","Serial").SetCollisionCondition("SpawnTruck")
 
+    --ChangeColor(0)
     BindGameObject("PatrolCar2") 
 
     MoveWithTime(0,2,346, 0)
@@ -73,6 +74,8 @@ BeginCommandGroup("MovingTruck","Serial").SetCollisionCondition("SpawnTruck")
     .AddPoint(108,2,255, 0,0,25)
     .AddPoint(72,2,220,  25,0,0)
     .LookAtCurve(1).LookAtOffset(-90,180,0)
+
+    FollowObject("PatrolCar1",4).SetFollowDistance(10).SetFollowOffset(0,0,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
 
 EndCommandGroup("MovingTruck")
 
