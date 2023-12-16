@@ -14,7 +14,7 @@ public:
 
 	TriggerZoneManager();
 
-	GameObject* SpawnZone(const std::string& zoneId, const glm::vec3& scale);
+	GameObject* SpawnZone(const std::string& zoneId, const glm::vec3& pos, const glm::vec3& scale);
 	void SetShader(Shader* shader);
 
 private:

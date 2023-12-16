@@ -185,6 +185,23 @@ Aabb PhysicsObject::GetAABB()
 	return aabb;
 }
 
+void PhysicsObject::AddExludingPhyObj(PhysicsObject* phyObj)
+{
+	listOfExcludingPhyObjects.push_back(phyObj);
+}
+
+bool PhysicsObject::CheckIfExcluding(PhysicsObject* phyObj)
+{
+	for (PhysicsObject* phy : listOfExcludingPhyObjects)
+	{
+		if (phy == phyObj)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void PhysicsObject::CalculatePhysicsShape()
 {
 	aabb = CalculateModelAABB();
@@ -193,8 +210,10 @@ void PhysicsObject::CalculatePhysicsShape()
 	if (shape == SPHERE)
 	{
 		glm::vec3 position = (aabb.min + aabb.max) * 0.5f;
+		position += properties.offset;
 		glm::vec3 sideLengths = aabb.max - aabb.min;
 		float radius = 0.5f * glm::max(sideLengths.x, glm::max(sideLengths.y, sideLengths.z));
+		radius *= properties.colliderScale;
 		physicsShape = new Sphere(position, radius);
 		transformedPhysicsShape = new Sphere();
 	}

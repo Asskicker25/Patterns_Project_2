@@ -13,9 +13,12 @@ TriggerZoneManager::TriggerZoneManager()
 	InitializeEntity(this);
 }
 
-GameObject* TriggerZoneManager::SpawnZone(const std::string& zoneId, const glm::vec3& scale)
+GameObject* TriggerZoneManager::SpawnZone(const std::string& zoneId, const glm::vec3& pos, const glm::vec3& scale)
 {
 	TriggerZone* zone = triggerZoneFactory->CreateZone(zoneId, scale);
+	zone->GetTransform()->SetPosition(pos);
+	zone->phyObj->isEnabled = true;
+
 	return zone;
 }
 

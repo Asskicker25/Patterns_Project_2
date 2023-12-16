@@ -5,9 +5,7 @@ BeginCommandGroup("CarSpawn","Parallel")
     MoveWithTime(140, 1, 346,0)
     RotateWithTime(-90,-90,0,0);
 
-    SpawnTriggerZone("SpawnTruck", 30,30,30)
-    BindGameObject("SpawnTruck")
-    MoveWithTime(0,2,346, 0)
+    SpawnTriggerZone("SpawnTruck",0,2,346, 30,30,30)
 
 EndCommandGroup("CarSpawn")
 
@@ -35,10 +33,48 @@ BeginCommandGroup("PatrolCar1Move","Serial",1)
     .AddPoint(-75,2,350,  5,0,0)
     .LookAtCurve(1).LookAtOffset(-90,180,0)
 
+    SetCollisionState(1)
+
     RotateWithTime(270,90,0,1)
 
     MoveWithTime(150,2,346, 5)
     RotateWithTime(270,270,0,1)
 
 EndCommandGroup("PatrolCar1Move")
+
+
+BindGameObject("PatrolCar1")
+BeginCommandGroup("SpawningTruck", "Parallel").SetCollisionCondition("SpawnTruck")
+    
+    SpawnCar("PatrolCar2",1)
+    BindGameObject("PatrolCar2") 
+    MoveWithTime(0,2,346,0)
+    RotateWithTime(-90,90,0,0);
+
+EndCommandGroup("SpawningTruck")
+
+
+BindGameObject("PatrolCar1")
+BeginCommandGroup("MovingTruck","Serial").SetCollisionCondition("SpawnTruck")
+
+    BindGameObject("PatrolCar2") 
+
+    MoveWithTime(0,2,346, 0)
+    
+    WaitForSeconds(2)
+    RotateWithTime(-90,-90,0, 2).EaseIn("Sine",0.5).EaseOut("Sine",0.5)
+    RotateWithTime(-90,-270,0, 2).EaseIn("Sine",0.5).EaseOut("Sine",0.5)
+    WaitForSeconds(3)
+
+    FollowCurveWithTime(7)
+    .AddPoint(0,2,346, 0,0,0)
+    .AddPoint(70,2,346, -25,0,0)
+    .AddPoint(102,2,296, 0,0,25)
+    .AddPoint(108,2,255, 0,0,25)
+    .AddPoint(72,2,220,  25,0,0)
+    .LookAtCurve(1).LookAtOffset(-90,180,0)
+
+EndCommandGroup("MovingTruck")
+
+
 

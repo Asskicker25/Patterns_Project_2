@@ -9,6 +9,7 @@
 #include "Commands/CreateCar.h"
 #include "Commands/FollowObject.h"
 #include "Commands/LookAt.h"
+#include "Commands/SetCollisionState.h"
 #include "LuaBindingFunction.h"
 #include "../AI/Car/CarManager.h"
 #include "../TriggerZone/TriggerZoneManager.h"
@@ -409,16 +410,21 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 		{
 			int argCount = lua_gettop(luaState);
 
-			if (argCount >= 4)
+			if (argCount >= 7)
 			{
 				std::string zoneId = luaL_checkstring(luaState, 1);
 
-				glm::vec3 scale;
-				scale.x = luaL_checknumber(luaState, 2);
-				scale.y = luaL_checknumber(luaState, 3);
-				scale.z = luaL_checknumber(luaState, 4);
+				glm::vec3 pos;
+				pos.x = luaL_checknumber(luaState, 2);
+				pos.y = luaL_checknumber(luaState, 3);
+				pos.z = luaL_checknumber(luaState, 4);
 
-				GameObject* zone = TriggerZoneManager::GetInstance().SpawnZone(zoneId, scale);
+				glm::vec3 scale;
+				scale.x = luaL_checknumber(luaState, 5);
+				scale.y = luaL_checknumber(luaState, 6);
+				scale.z = luaL_checknumber(luaState, 7);
+
+				GameObject* zone = TriggerZoneManager::GetInstance().SpawnZone(zoneId,pos, scale);
 				LuaManager::GetInstance().AddGameObject(zoneId, zone);
 
 				return 0;
@@ -432,7 +438,32 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 #pragma endregion
 
+#pragma region SetCollisionState
 
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 1)
+			{
+				float state = luaL_checknumber(luaState, 1);
+
+				PhysicsObject* phyObj = CommandManager::GetInstance().GetBoundGameObject()->phyObj;
+
+				SetCollisionState* command = new SetCollisionState(phyObj, state);
+
+				CommandManager::GetInstance().AddCommand(command);
+
+				return 0;
+
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "SetCollisionState");
+
+
+#pragma endregion
 
 
 }

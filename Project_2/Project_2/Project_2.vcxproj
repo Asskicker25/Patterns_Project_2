@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\LuaManager\Commands\SetCollisionState.cpp" />
     <ClCompile Include="src\LuaManager\Commands\LookAt.cpp" />
     <ClCompile Include="src\AI\Car\BaseCar.cpp" />
     <ClCompile Include="src\Camera\CameraObject.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\TriggerZone\TriggerZoneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\LuaManager\Commands\SetCollisionState.h" />
     <ClInclude Include="src\LuaManager\Commands\LookAt.h" />
     <ClInclude Include="src\Camera\CameraObject.h" />
     <ClInclude Include="src\LuaManager\Commands\FollowObject.h" />

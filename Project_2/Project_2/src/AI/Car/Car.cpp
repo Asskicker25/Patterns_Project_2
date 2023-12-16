@@ -10,6 +10,7 @@ Car::Car()
 void Car::CreateInstance(Model& model)
 {
 	this->model->CopyFromModel(model);
+	phyObj->isEnabled = false;
 	phyObj->Initialize(this->model, AABB, DYNAMIC,TRIGGER,true);
 	phyObj->userData = this;
 	phyObj->AssignCollisionCallback([this](PhysicsObject* other)
@@ -44,10 +45,12 @@ void Car::Start()
 
 void Car::Update(float deltaTime)
 {
+	renderer->DrawAABB(GetGraphicsAabb(phyObj->GetModelAABB()));
 }
 
 void Car::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
 {
+	this->renderer = renderer;
 }
 
 void Car::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)

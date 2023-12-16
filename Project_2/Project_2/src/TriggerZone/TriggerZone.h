@@ -9,8 +9,6 @@ public:
 	TriggerZone();
 	void CreateInstance(Model& model);
 
-private:
-
 	// Inherited via GameObject
 	void Start() override;
 	void Update(float deltaTime) override;
@@ -19,5 +17,7 @@ private:
 
 	// Inherited via GameObject
 	Transform* GetTransform() override;
+
+	Renderer* renderer;
 };
 
