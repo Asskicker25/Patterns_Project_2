@@ -57,7 +57,6 @@ EndCommandGroup("SpawningTruck")
 BindGameObject("PatrolCar1")
 BeginCommandGroup("MovingTruck","Serial").SetCollisionCondition("SpawnTruck")
 
-    --ChangeColor(0)
     BindGameObject("PatrolCar2") 
 
     MoveWithTime(0,2,346, 0)
@@ -78,6 +77,5 @@ BeginCommandGroup("MovingTruck","Serial").SetCollisionCondition("SpawnTruck")
     FollowObject("PatrolCar1",4).SetFollowDistance(10).SetFollowOffset(0,0,0).SetMaxSpeed(0.01).SetAccelerationRange(30).SetAccelerationRange(60)
 
 EndCommandGroup("MovingTruck")
-
 
 

@@ -22,8 +22,6 @@ void Car::CreateInstance(Model& model)
 
 			if (it != listOfCollisionGroups.end())
 			{
-				Debugger::Print("Collided With : ", otherTag);
-
 				it->second->conditionMet = true;
 			}
 		});

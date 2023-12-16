@@ -465,45 +465,45 @@ void LuaManager::SetBindingsToState(lua_State* luaState)
 
 
 #pragma endregion
-//
-//#pragma region ChangeColor
-//
-//	lua_pushcfunction(luaState, [](lua_State* luaState)->int
-//		{
-//			int argCount = lua_gettop(luaState);
-//
-//			if (argCount >= 4)
-//			{
-//				float materialIndex = luaL_checknumber(luaState, 1);
-//
-//				glm::vec3 color;
-//				color.x = luaL_checknumber(luaState, 2);
-//				color.y = luaL_checknumber(luaState, 3);
-//				color.z = luaL_checknumber(luaState, 4);
-//
-//				BaseMaterial* mat = CommandManager::GetInstance().GetBoundGameObject()->model->meshes[materialIndex]->material;
-//				BaseCommand* command = new ChangeColor(mat,color);
-//
-//				CommandManager::GetInstance().AddCommand(command);
-//
-//				return 0;
-//			}
-//			if (argCount == 1)
-//			{
-//				float materialIndex = luaL_checknumber(luaState, 1);
-//
-//				BaseMaterial* mat = CommandManager::GetInstance().GetBoundGameObject()->model->meshes[materialIndex]->material;
-//				BaseCommand* command = new ChangeColor(mat);
-//				CommandManager::GetInstance().AddCommand(command);
-//				return 0;
-//			}
-//			return 0;
-//		});
-//
-//	lua_setglobal(luaState, "ChangeColor");
-//
-//
-//#pragma endregion
+
+#pragma region ChangeColor
+
+	lua_pushcfunction(luaState, [](lua_State* luaState)->int
+		{
+			int argCount = lua_gettop(luaState);
+
+			if (argCount >= 4)
+			{
+				float materialIndex = luaL_checknumber(luaState, 1);
+
+				glm::vec3 color;
+				color.x = luaL_checknumber(luaState, 2);
+				color.y = luaL_checknumber(luaState, 3);
+				color.z = luaL_checknumber(luaState, 4);
+
+				BaseMaterial* mat = CommandManager::GetInstance().GetBoundGameObject()->model->meshes[materialIndex]->material;
+				BaseCommand* command = new ChangeColor(mat,color);
+
+				CommandManager::GetInstance().AddCommand(command);
+
+				return 0;
+			}
+			if (argCount == 1)
+			{
+				float materialIndex = luaL_checknumber(luaState, 1);
+
+				BaseMaterial* mat = CommandManager::GetInstance().GetBoundGameObject()->model->meshes[materialIndex]->material;
+				BaseCommand* command = new ChangeColor(mat);
+				CommandManager::GetInstance().AddCommand(command);
+				return 0;
+			}
+			return 0;
+		});
+
+	lua_setglobal(luaState, "ChangeColor");
+
+
+#pragma endregion
 
 
 }

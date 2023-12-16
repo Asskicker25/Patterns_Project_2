@@ -70,6 +70,8 @@ GameObject* CommandManager::GetBoundGameObject()
 
 void CommandManager::Update(float deltaTime)
 {
+	if (isPaused) return;
+
 	for (CommandGroup* commandGroup : listOfCommandGroups)
 	{
 		if (commandGroup->conditionMet)
@@ -78,5 +80,10 @@ void CommandManager::Update(float deltaTime)
 		}
 	}
 
-	
+
+}
+
+void CommandManager::TogglePaused()
+{
+	isPaused = !isPaused;
 }

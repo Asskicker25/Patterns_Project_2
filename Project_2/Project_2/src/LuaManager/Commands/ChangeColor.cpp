@@ -11,6 +11,11 @@ ChangeColor::ChangeColor(BaseMaterial* material)
 {
     this->material = material;
 
+  
+}
+
+void ChangeColor::StartCommand()
+{
     float randomX = GetRandomFloatNumber(0, 1);
     float randomY = GetRandomFloatNumber(0, 1);
     float randomZ = GetRandomFloatNumber(0, 1);
@@ -18,14 +23,10 @@ ChangeColor::ChangeColor(BaseMaterial* material)
     color = glm::vec4(randomX, randomY, randomZ, 1);
 }
 
-void ChangeColor::StartCommand()
-{
-    material->AsMaterial()->SetBaseColor(glm::vec4(color,1.0f));
-    colorChanged = true;
-}
-
 void ChangeColor::Update()
 {
+    material->AsMaterial()->SetBaseColor(glm::vec4(color, 1.0f));
+    colorChanged = true;
 }
 
 void ChangeColor::EndCommand()
