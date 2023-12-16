@@ -37,7 +37,7 @@ BeginCommandGroup("PatrolCar1Move","Serial", -1)
 
     RotateWithTime(270,90,0,1)
 
-    MoveWithTime(150,2,346, 5)
+    MoveWithSpeed(150,2,346, 0.2)
     RotateWithTime(270,270,0,1)
 
 EndCommandGroup("PatrolCar1Move")

@@ -85,8 +85,9 @@ void Mesh::DrawNormals(Shader* shader, glm::vec3 color, glm::mat4 transformMatri
 		model->transform.SetScale(renderer->GetNormalsScale());
 
 		glm::vec3 transformedCenter = transformMatrix * glm::vec4(triangles[i].center, 1.0f);
-		glm::vec3 transformedNormal = transformMatrix * glm::vec4(triangles[i].normal,0);
+		glm::vec3 transformedNormal =glm::normalize( transformMatrix * glm::vec4(triangles[i].normal,0));
 		glm::vec3 pos = transformedCenter + (transformedNormal * model->transform.scale.y * 0.5f);
+		//glm::vec3 pos = transformedCenter ;
 
 		model->transform.SetPosition(pos); 
 
